@@ -1,4 +1,5 @@
-import os, pygame
+import os
+import pygame
 import config
 
 class Hazard(pygame.sprite.Sprite):

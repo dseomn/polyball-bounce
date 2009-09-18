@@ -1,4 +1,5 @@
-import sys, time, random, pygame
+import sys, time, random
+import pygame
 import config
 
 pygame.init()
