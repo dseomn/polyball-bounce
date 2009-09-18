@@ -1,13 +1,18 @@
 import sys, pygame
 
 pygame.init()
-screen = pygame.display.set_mode((400,400))
+
+size = (400, 400)
+center = (200, 200)
+
+screen = pygame.display.set_mode(size)
 
 from ball import Ball
+from hazard import Hazard
 
+hazards = pygame.sprite.Group(Hazard(Hazard.BOTTOM_RIGHT))
 
-ball = Ball()
-sprites = pygame.sprite.Group(ball)
+balls = pygame.sprite.Group(Ball(center, hazards))
 
 background = (255, 255, 255)
 
@@ -15,7 +20,8 @@ while 1:
   for event in pygame.event.get():
     if event.type == pygame.QUIT: sys.exit()
 
-  sprites.update()
+  balls.update()
   screen.fill(background)
-  sprites.draw(screen)
+  balls.draw(screen)
+  hazards.draw(screen)
   pygame.display.flip()
