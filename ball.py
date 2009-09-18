@@ -1,8 +1,10 @@
-from pygame.sprite import DirtySprite
+import os, pygame
 
-class Ball(DirtySprite):
+class Ball(pygame.sprite.DirtySprite):
   vel = [1,1]
+  image = pygame.image.load(os.path.join('data', 'ball.png')).convert_alpha()
+  rect = image.get_rect() 
 
-  def update():
-    dirty = 1
-    source_rect.move(vel)
+  def update(self):
+    self.dirty = 1
+    self.rect = self.rect.move(self.vel)
