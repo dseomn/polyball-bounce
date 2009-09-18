@@ -10,7 +10,9 @@ screen = pygame.display.set_mode(config.size)
 from ball import Ball
 from hazard import Hazard
 
-hazards = pygame.sprite.Group(Hazard(Hazard.BOTTOM_RIGHT))
+hazards = pygame.sprite.Group()
+for i in Hazard.ALL:
+  hazards.add(Hazard(i))
 
 balls = pygame.sprite.Group(Ball(hazards))
 

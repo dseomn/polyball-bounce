@@ -3,7 +3,7 @@ import pygame
 import config
 
 class Hazard(pygame.sprite.Sprite):
-  TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT = range(4)
+  ALL = TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT = range(4)
   
   def __init__(self, type):
     pygame.sprite.Sprite.__init__(self)
@@ -11,6 +11,13 @@ class Hazard(pygame.sprite.Sprite):
     self.image.fill(config.colors['bg'])
     self.image.set_colorkey(config.colors['bg'])
     self.rect = self.image.get_rect()
-    if type == Hazard.BOTTOM_RIGHT:
+    if type in (Hazard.TOP_LEFT, Hazard.BOTTOM_RIGHT):
       self.rect = pygame.draw.line(self.image, config.colors['fg'], (0,config.hazard['size'][1]), (config.hazard['size'][0],0), config.hazard['width'])
+    elif type in (Hazard.TOP_RIGHT, Hazard.BOTTOM_LEFT):
+      self.rect = pygame.draw.line(self.image, config.colors['fg'], (0,0), config.hazard['size'], config.hazard['width'])
+    if type == Hazard.BOTTOM_RIGHT:
       self.rect = self.rect.move((config.size[0] - config.hazard['size'][0], config.size[1] - config.hazard['size'][1]))
+    elif type == Hazard.TOP_RIGHT:
+      self.rect = self.rect.move((0, config.size[1] - config.hazard['size'][1]))
+    elif type == Hazard.BOTTOM_LEFT:
+      self.rect = self.rect.move((config.size[0] - config.hazard['size'][0], 0))
