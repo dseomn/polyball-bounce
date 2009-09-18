@@ -9,12 +9,18 @@ screen = pygame.display.set_mode(config.size)
 
 from ball import Ball
 from hazard import Hazard
+from player import Player
 
-hazards = pygame.sprite.Group()
+collideables = pygame.sprite.Group()
+scoreables = pygame.sprite.Group()
 for i in Hazard.ALL:
-  hazards.add(Hazard(i))
+  collideables.add(Hazard(i))
 
-balls = pygame.sprite.Group(Ball(hazards))
+players = []
+for i in Player.ALL:
+  players.add(Player(i, collideables, scoreables))
+
+balls = pygame.sprite.Group(Ball(collideables, scoreables))
 
 while True:
   for event in pygame.event.get():

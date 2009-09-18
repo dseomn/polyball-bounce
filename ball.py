@@ -22,5 +22,5 @@ class Ball(pygame.sprite.DirtySprite):
       except AttributeError:
         pass
     for scored in pygame.sprite.spritecollide(self, self.scoreables, True, pygame.sprite.collide_mask):
-      scored.owner.score--
+      scored.owner.score -= 1
     self.rect = self.rect.move(self.vel.delta(config.speed))
