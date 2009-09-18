@@ -1,6 +1,6 @@
 size = (400, 400)
 
-speed = 1
+speed = 3
 
 sleep = 0.01
 
