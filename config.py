@@ -16,6 +16,17 @@ hazard = {
   'width': 5,
 }
 
+paddle = {
+  'size_horizontal': (75, 10),
+  'size_vertical': (10, 75),
+  'center': {
+    Player.TOP: (200, 15),
+    Player.LEFT: (15, 200),
+    Player.RIGHT: (385, 200),
+    Player.BOTTOM: (200, 385),
+  }
+}
+
 score_zone = {
   Player.TOP: (100, 0, 200, 10),
   Player.LEFT: (0, 100, 10, 200),
