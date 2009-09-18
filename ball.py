@@ -15,5 +15,5 @@ class Ball(pygame.sprite.DirtySprite):
     self.dirty = 1
     collided = pygame.sprite.spritecollide(self, self.collidables, False, pygame.sprite.collide_mask)
     for i in collided:
-      self.vel.angle += math.pi
+      self.vel.angle = i.bounceAngle(self.vel.angle)
     self.rect = self.rect.move(self.vel.delta(config.speed))
