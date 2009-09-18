@@ -1,3 +1,5 @@
+from player import Player
+
 size = (400, 400)
 
 speed = 3
@@ -12,6 +14,13 @@ ball = {
 hazard = {
   'size': (100, 100),
   'width': 5,
+}
+
+score_zone = {
+  Player.TOP: (100, 0, 200, 10),
+  Player.LEFT: (0, 100, 10, 200),
+  Player.RIGHT: (390, 100, 10, 200),
+  Player.BOTTOM: (100, 390, 200, 10),
 }
 
 colors = {
