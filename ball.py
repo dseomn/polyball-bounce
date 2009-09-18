@@ -1,10 +1,9 @@
-import os, pygame
+import os, random, math
+import pygame
 import config, velocity
 
-import math
-
 class Ball(pygame.sprite.DirtySprite):
-  def __init__(self, collidables, start=config.ball['start'], speed=config.ball['speed'], angle=7*math.pi/4):
+  def __init__(self, collidables, start=config.ball['start'], speed=config.ball['speed'], angle=random.uniform(0, 2*math.pi)):
     pygame.sprite.DirtySprite.__init__(self)
     self.vel = velocity.Velocity(speed, angle)
     self.image = pygame.image.load(os.path.join('data', 'ball.png')).convert_alpha()

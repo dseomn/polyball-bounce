@@ -1,7 +1,8 @@
-import sys, time, pygame
+import sys, time, random, pygame
 import config
 
 pygame.init()
+random.seed()
 
 screen = pygame.display.set_mode(config.size)
 
