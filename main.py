@@ -1,19 +1,16 @@
-import sys, pygame
+import sys, time, pygame
 import config
 
 pygame.init()
 
-size = (400, 400)
-center = (200, 200)
-
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode(config.size)
 
 from ball import Ball
 from hazard import Hazard
 
 hazards = pygame.sprite.Group(Hazard(Hazard.BOTTOM_RIGHT))
 
-balls = pygame.sprite.Group(Ball(center, hazards))
+balls = pygame.sprite.Group(Ball(hazards))
 
 while True:
   for event in pygame.event.get():
@@ -24,3 +21,4 @@ while True:
   balls.draw(screen)
   hazards.draw(screen)
   pygame.display.flip()
+  time.sleep(config.sleep)
