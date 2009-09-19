@@ -11,6 +11,8 @@ class Ball(pygame.sprite.DirtySprite):
     self.image = pygame.image.load(os.path.join('data', 'ball.png')).convert_alpha()
     self.rect = self.image.get_rect()
     self.rect.center = config.ball['start']
+    self.x = self.rect.centerx
+    self.y = self.rect.centery
     self.collideables = collideables
     self.scoreables = scoreables
     self.prev_collided = []
@@ -32,4 +34,7 @@ class Ball(pygame.sprite.DirtySprite):
       scored.owner.score -= 1
       self.kill()
       return
-    self.rect = self.rect.move(self.vel.delta(config.speed))
+    deltax, deltay = self.vel.delta(config.speed)
+    self.x += deltax
+    self.y += deltay
+    self.rect.center = (self.x, self.y)
