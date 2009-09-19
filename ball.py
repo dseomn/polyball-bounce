@@ -3,8 +3,10 @@ import pygame
 import config, velocity
 
 class Ball(pygame.sprite.DirtySprite):
-  def __init__(self, collideables, scoreables, start=config.ball['start'], speed=config.ball['speed'], angle=random.uniform(0, 2*math.pi)):
+  def __init__(self, collideables, scoreables, start=config.ball['start'], speed=config.ball['speed'], angle=None):
     pygame.sprite.DirtySprite.__init__(self)
+    if angle is None:
+      angle = random.uniform(0, 2*math.pi)
     self.vel = velocity.Velocity(speed, angle)
     self.image = pygame.image.load(os.path.join('data', 'ball.png')).convert_alpha()
     self.rect = self.image.get_rect()
@@ -26,6 +28,8 @@ class Ball(pygame.sprite.DirtySprite):
       except AttributeError:
         pass
     self.prev_collided = cur_collided
-    for scored in pygame.sprite.spritecollide(self, self.scoreables, True, pygame.sprite.collide_mask):
+    for scored in pygame.sprite.spritecollide(self, self.scoreables, False, pygame.sprite.collide_mask):
       scored.owner.score -= 1
+      self.kill()
+      return
     self.rect = self.rect.move(self.vel.delta(config.speed))

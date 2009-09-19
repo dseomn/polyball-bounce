@@ -3,7 +3,6 @@ import pygame
 import config
 
 pygame.init()
-random.seed()
 
 screen = pygame.display.set_mode(config.size)
 
