@@ -15,8 +15,9 @@ class Player:
     self.score = 0
     self.type = type
     self.name = Player.type_name[self.type]
+    self.score_zone = ScoreZone(self)
     paddles.add(Paddle(self))
-    score_zones.add(ScoreZone(self))
+    score_zones.add(self.score_zone)
 
 
 class Paddle(pygame.sprite.DirtySprite):
@@ -45,6 +46,8 @@ class Paddle(pygame.sprite.DirtySprite):
     self.image.set_colorkey(config.colors['bg'])
     self.rect = self.image.get_rect()
     self.rect.center = config.paddle['center'][owner.type]
+    self.x = self.rect.centerx
+    self.y = self.rect.centery
     self.dirty = 1
 
   def bounce_angle(self, angle):
@@ -70,11 +73,24 @@ class HumanPaddle(Paddle):
 
 class ComputerPaddle(Paddle):
   def update(self):
-    pass
+    ball = self.find_closest()
+    if ball is None:
+      pass # TODO: move towards center
+    else:
+      pass # TODO: move towards ball
 
   def find_closest(self):
-    "returns the Ball  heading towards this Player's score zone that's closest to this Paddle"
+    "returns the Ball heading towards this Player's score zone that's closest to this Paddle"
+    min_dist = math.sqrt(config.size[0]**2 + config.size[1]**2)
+    min_ball = None
     for ball in balls:
+      if not pygame.sprite.collide_mask(ball.edge_destination, self.owner.score_zone):
+        continue
+      dist = math.sqrt( (self.x - ball.x)**2 + (self.y - ball.y)**2 )
+      if dist < min_dist:
+        min_dist = dist
+        min_ball = ball
+    return min_ball
 
 
 class ScoreZone(pygame.sprite.Sprite):
