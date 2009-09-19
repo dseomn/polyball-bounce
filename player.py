@@ -20,15 +20,15 @@ class Player:
 
 
 class Paddle(pygame.sprite.DirtySprite):
-  def __init__(self, owner):
+  def __init__(self, owner, speed=config.paddle['speed']):
     pygame.sprite.DirtySprite.__init__(self)
     self.owner = owner
 
     if self.owner.type in (Player.TOP, Player.BOTTOM):
-      self.vel = velocity.Velocity(0, 0)
+      self.pos_angle = 0
       self.image = pygame.Surface(config.paddle['size_horizontal'])
     elif self.owner.type in (Player.LEFT, Player.RIGHT):
-      self.vel = velocity.Velocity(0, math.pi/2)
+      self.pos_angle = math.pi/2
       self.image = pygame.Surface(config.paddle['size_vertical'])
 
     if self.owner.type == Player.TOP:
@@ -40,6 +40,7 @@ class Paddle(pygame.sprite.DirtySprite):
     elif self.owner.type == Player.BOTTOM:
       self.normal = math.pi/2
 
+    self.vel = velocity.Velocity(0, 0)
     self.image.fill(config.colors['fg'])
     self.image.set_colorkey(config.colors['bg'])
     self.rect = self.image.get_rect()
@@ -50,15 +51,30 @@ class Paddle(pygame.sprite.DirtySprite):
     "compute the angle something should bounce off of this hazard"
     return 2*self.normal - angle + math.pi
 
+  def move_pos(self):
+    self.vel.speed = self.speed
+    self.vel.angle = self.pos_angle
+
+  def move_neg(self):
+    self.vel.speed = self.speed
+    self.vel.angle = self.pos_angle + math.pi
+
+  def move_stop(self):
+    self.vel.speed = 0
+
 
 class HumanPaddle(Paddle):
   def update(self):
     pass
 
 
-class AIPaddle(Paddle):
+class ComputerPaddle(Paddle):
   def update(self):
     pass
+
+  def find_closest(self):
+    "returns the Ball  heading towards this Player's score zone that's closest to this Paddle"
+    for ball in balls:
 
 
 class ScoreZone(pygame.sprite.Sprite):

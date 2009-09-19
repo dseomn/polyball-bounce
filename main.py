@@ -10,18 +10,19 @@ from ball import Ball
 from hazard import Hazard
 from player import Player
 
+# set up objects on the game board
+players = []
 collideables = pygame.sprite.Group()
 scoreables = pygame.sprite.Group()
+balls = pygame.sprite.Group()
 for i in Hazard.ALL:
   collideables.add(Hazard(i))
-
-players = []
 for i in Player.ALL:
   players.append(Player(i, collideables, scoreables))
-
-balls = pygame.sprite.Group()
 for i in xrange(config.num_balls):
   balls.add(Ball(collideables, scoreables))
+for i in collideables:
+  i.balls = balls
 
 while True:
   for event in pygame.event.get():

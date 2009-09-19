@@ -19,6 +19,7 @@ hazard = {
 }
 
 paddle = {
+  'speed': 1, # ratio relative to config.speed above
   'size_horizontal': (75, 10),
   'size_vertical': (10, 75),
   'center': {
