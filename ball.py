@@ -11,16 +11,21 @@ class Ball(pygame.sprite.DirtySprite):
     self.rect.center = config.ball['start']
     self.collideables = collideables
     self.scoreables = scoreables
+    self.prev_collided = []
     self.owner = None
 
   def update(self):
     self.dirty = 1
-    for collided in pygame.sprite.spritecollide(self, self.collideables, False, pygame.sprite.collide_mask):
+    cur_collided = pygame.sprite.spritecollide(self, self.collideables, False, pygame.sprite.collide_mask)
+    for collided in cur_collided:
+      if collided in self.prev_collided:
+        continue
       self.vel.angle = collided.bounce_angle(self.vel.angle)
       try:
         self.owner = collided.owner
       except AttributeError:
         pass
+    self.prev_collided = cur_collided
     for scored in pygame.sprite.spritecollide(self, self.scoreables, True, pygame.sprite.collide_mask):
       scored.owner.score -= 1
     self.rect = self.rect.move(self.vel.delta(config.speed))
