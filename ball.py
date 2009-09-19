@@ -16,7 +16,7 @@ class Ball(pygame.sprite.DirtySprite):
   def update(self):
     self.dirty = 1
     for collided in pygame.sprite.spritecollide(self, self.collideables, False, pygame.sprite.collide_mask):
-      self.vel.angle = collided.bounceAngle(self.vel.angle)
+      self.vel.angle = collided.bounce_angle(self.vel.angle)
       try:
         self.owner = collided.owner
       except AttributeError:

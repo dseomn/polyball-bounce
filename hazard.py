@@ -29,6 +29,6 @@ class Hazard(pygame.sprite.Sprite):
       self.normal = 3*math.pi/4
       self.rect = self.rect.move((config.size[0] - config.hazard['size'][0], config.size[1] - config.hazard['size'][1]))
   
-  def bounceAngle(self, angle):
+  def bounce_angle(self, angle):
     "compute the angle something should bounce off of this hazard"
     return 2*self.normal - angle + math.pi
