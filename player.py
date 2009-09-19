@@ -4,6 +4,12 @@ import config, velocity
 
 class Player:
   ALL = TOP, LEFT, RIGHT, BOTTOM = range(4)
+  name = {
+    TOP: 'Top',
+    LEFT: 'Left',
+    RIGHT: 'Right',
+    BOTTOM: 'Bottom',
+  }
 
   def __init__(self, type, paddles, score_zones):
     self.score = 0
