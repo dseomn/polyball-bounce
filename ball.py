@@ -1,8 +1,13 @@
-import os, random, math
+import os, random, math, copy
 import pygame
 import config, velocity
 
 class Ball(pygame.sprite.DirtySprite):
+  def get_edge_destination(self):
+    ret = copy.deepcopy(self)
+    # TODO: set ret.x, ret.y, ret.rect.center and return ret
+  edge_destination = property(get_edge_destination)
+
   def __init__(self, collideables, scoreables, start=config.ball['start'], speed=config.ball['speed'], angle=None):
     pygame.sprite.DirtySprite.__init__(self)
     if angle is None:
