@@ -28,10 +28,10 @@ paddle = {
 }
 
 score_zone = {
-  Player.TOP: (100, 0, 200, 10),
-  Player.LEFT: (0, 100, 10, 200),
-  Player.RIGHT: (390, 100, 10, 200),
-  Player.BOTTOM: (100, 390, 200, 10),
+  Player.TOP: {'center': (200, 5), 'size': (200, 10)},
+  Player.LEFT: {'center': (5, 200), 'size': (10, 200)},
+  Player.RIGHT: {'center': (395, 200), 'size': (10, 200)},
+  Player.BOTTOM: {'center': (200, 395), 'size': (200, 10)},
 }
 
 colors = {

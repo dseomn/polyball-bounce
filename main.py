@@ -18,7 +18,7 @@ for i in Hazard.ALL:
 
 players = []
 for i in Player.ALL:
-  players.add(Player(i, collideables, scoreables))
+  players.append(Player(i, collideables, scoreables))
 
 balls = pygame.sprite.Group(Ball(collideables, scoreables))
 
@@ -29,6 +29,6 @@ while True:
   balls.update()
   screen.fill(config.colors['bg'])
   balls.draw(screen)
-  hazards.draw(screen)
+  collideables.draw(screen)
   pygame.display.flip()
   time.sleep(config.sleep)

@@ -24,8 +24,8 @@ class Velocity:
 
   def __init__(self, speed, angle):
     "angle = angle CCW of the x+ axis in radians, 0 < angle < 2*pi"
-    self.speed = speed
-    self.angle = angle
+    self._speed = speed
+    self._angle = angle
     self.normalize()
 
   def normalize(self):

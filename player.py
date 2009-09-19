@@ -1,5 +1,6 @@
+import math
 import pygame
-import velocity
+import config, velocity
 
 class Player:
   ALL = TOP, LEFT, RIGHT, BOTTOM = range(4)
@@ -38,5 +39,7 @@ class ScoreZone(pygame.sprite.Sprite):
   def __init__(self, owner):
     pygame.sprite.Sprite.__init__(self)
     self.owner = owner
-    self.rect = pygame.rect(config.score_zone[self.owner.type])
+    self.image = pygame.Surface(config.score_zone[self.owner.type]['size'])
+    self.rect = self.image.get_rect()
+    self.rect.center = config.score_zone[self.owner.type]['center']
 
