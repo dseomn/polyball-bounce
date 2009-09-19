@@ -1,11 +1,14 @@
 import math
 
 class Velocity:
-  _angle = None
-  _speed = None
+  def __init__(self, speed, angle):
+    "angle = angle CCW of the x+ axis in radians, 0 < angle < 2*pi"
+    self._speed = None
+    self._angle = None
+    self.set_angle(angle)
+    self.set_speed(speed)
 
   def get_angle(self):
-    if self._angle > 2*math.pi or self._angle < 0:
     return self._angle
   def set_angle(self, value):
     self._angle = value % (2*math.pi)
@@ -22,11 +25,6 @@ class Velocity:
   def del_speed(self):
     del self._speed
   speed = property(get_speed, set_speed, del_speed)
-
-  def __init__(self, speed, angle):
-    "angle = angle CCW of the x+ axis in radians, 0 < angle < 2*pi"
-    self.speed = speed
-    self.angle = angle
 
   def delta(self, time):
     "return (change from top, change from left) for given time"
