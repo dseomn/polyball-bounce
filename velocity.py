@@ -27,5 +27,5 @@ class Velocity:
   speed = property(get_speed, set_speed, del_speed)
 
   def delta(self, time):
-    "return (change from top, change from left) for given time"
-    return (-1*time*self.speed*math.sin(self.angle), time*self.speed*math.cos(self.angle))
+    "return (change in left, change from top) for given time"
+    return (time*self.speed*math.cos(self.angle), -1*time*self.speed*math.sin(self.angle))
