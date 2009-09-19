@@ -20,13 +20,17 @@ players = []
 for i in Player.ALL:
   players.append(Player(i, collideables, scoreables))
 
-balls = pygame.sprite.Group(Ball(collideables, scoreables))
+balls = pygame.sprite.Group()
+for i in xrange(config.num_balls):
+  balls.add(Ball(collideables, scoreables))
 
 while True:
   for event in pygame.event.get():
     if event.type == pygame.QUIT: sys.exit()
 
   balls.update()
+  while len(balls) < config.num_balls:
+    balls.add(Ball(collideables, scoreables))
   screen.fill(config.colors['bg'])
   balls.draw(screen)
   collideables.draw(screen)

@@ -6,6 +6,8 @@ speed = 3
 
 sleep = 0.01
 
+num_balls = 2
+
 ball = {
   'start': (200, 200),
   'speed': 1.0, # ratio relative to config.speed above
