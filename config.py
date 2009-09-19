@@ -1,4 +1,3 @@
-from player import Player
 
 size = (400, 400)
 
@@ -22,12 +21,13 @@ paddle = {
   'speed': 1, # ratio relative to config.speed above
   'size_horizontal': (75, 10),
   'size_vertical': (10, 75),
-  'center': {
-    Player.TOP: (200, 15),
-    Player.LEFT: (15, 200),
-    Player.RIGHT: (385, 200),
-    Player.BOTTOM: (200, 385),
-  }
+}
+from player import Player
+paddle['center']= {
+  Player.TOP: (200, 15),
+  Player.LEFT: (15, 200),
+  Player.RIGHT: (385, 200),
+  Player.BOTTOM: (200, 385),
 }
 
 score_zone = {
