@@ -4,7 +4,7 @@ import config, velocity
 
 class Player:
   ALL = TOP, LEFT, RIGHT, BOTTOM = range(4)
-  name = {
+  type_name = {
     TOP: 'Top',
     LEFT: 'Left',
     RIGHT: 'Right',
@@ -14,6 +14,7 @@ class Player:
   def __init__(self, type, paddles, score_zones):
     self.score = 0
     self.type = type
+    self.name = Player.type_name[self.type]
     paddles.add(Paddle(self))
     score_zones.add(ScoreZone(self))
 
