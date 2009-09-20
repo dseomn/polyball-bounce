@@ -24,6 +24,8 @@ class Velocity(object):
     self.angle = angle
     self.speed = speed
 
-  def delta(self, time):
+  def delta(self, time, speed=None):
     "return (change in left, change from top) for given time"
-    return (time*self.speed*math.cos(self.angle), -1*time*self.speed*math.sin(self.angle))
+    if speed is None:
+      speed = self.speed
+    return (time*speed*math.cos(self.angle), -1*time*speed*math.sin(self.angle))
