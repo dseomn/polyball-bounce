@@ -4,7 +4,7 @@ import config, velocity
 
 class Ball(pygame.sprite.DirtySprite):
   def get_edge_destination(self):
-    ret = copy.deepcopy(self)
+    ret = Ball(None, None, start=self.rect.center, angle=self.vel.angle)
 
     # move the ret to one edge
     if math.pi/4 <= ret.vel.angle < 3*math.pi/4: # up
@@ -76,7 +76,7 @@ class Ball(pygame.sprite.DirtySprite):
     self.vel = velocity.Velocity(speed, angle)
     self.image = pygame.image.load(os.path.join('data', 'ball.png')).convert_alpha()
     self.rect = self.image.get_rect()
-    self.rect.center = config.ball['start']
+    self.rect.center = start
     self.x = self.rect.centerx
     self.y = self.rect.centery
     self.collideables = collideables
