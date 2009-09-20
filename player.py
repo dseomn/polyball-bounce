@@ -4,9 +4,10 @@ import config, velocity
 
 
 class Paddle(pygame.sprite.DirtySprite):
-  def __init__(self, owner, speed=config.paddle['speed']):
+  def __init__(self, owner, hazards, speed=config.paddle['speed']):
     pygame.sprite.DirtySprite.__init__(self)
     self.owner = owner
+    self.hazards = hazards
 
     if self.owner.type in (Player.TOP, Player.BOTTOM):
       self.pos_angle = 0
@@ -48,6 +49,19 @@ class Paddle(pygame.sprite.DirtySprite):
   def move_stop(self):
     self.vel.speed = 0
 
+  def update(self):
+    """Move the paddle based on self.vel, but don't actually compute self.vel.
+    This should be called by all sub-classes."""
+    old_x, old_y = self.x, self.y
+    deltax, deltay = self.vel.delta(config.speed)
+    self.x += deltax
+    self.y += deltay
+    self.rect.center = (self.x, self.y)
+    if pygame.sprite.spritecollide(self, self.hazards, False, pygame.sprite.collide_mask):
+      self.rect.center = self.x, self.y = old_x, old_y
+    else:
+      dirty = 1
+
 
 class HumanPaddle(Paddle):
   def update(self):
@@ -73,6 +87,7 @@ class ComputerPaddle(Paddle):
         self.move_neg()
       else:
         self.move_pos()
+    Paddle.update(self)
 
   def find_closest(self):
     "returns the Ball heading towards this Player's score zone that's closest to this Paddle"
@@ -106,10 +121,10 @@ class Player:
     BOTTOM: 'Bottom',
   }
 
-  def __init__(self, type, paddles, score_zones, paddle_type=Paddle):
+  def __init__(self, type, paddles, score_zones, hazards, paddle_type=Paddle):
     self.score = 0
     self.type = type
     self.name = Player.type_name[self.type]
     self.score_zone = ScoreZone(self)
-    paddles.add(paddle_type(self))
+    paddles.add(paddle_type(self, hazards))
     score_zones.add(self.score_zone)
