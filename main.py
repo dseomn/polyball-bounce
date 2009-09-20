@@ -33,6 +33,7 @@ while True:
     if event.type == pygame.QUIT: sys.exit()
 
   balls.update()
+  paddles.update()
   while len(balls) < config.num_balls:
     balls.add(Ball(collideables, score_zones))
   screen.fill(config.colors['bg'])
