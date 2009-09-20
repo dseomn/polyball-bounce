@@ -8,7 +8,7 @@ screen = pygame.display.set_mode(config.size)
 
 from ball import Ball
 from hazard import Hazard
-from player import Player
+from player import Player, ComputerPaddle
 
 # set up objects on the game board
 players = []
@@ -18,7 +18,7 @@ balls = pygame.sprite.Group()
 for i in Hazard.ALL:
   collideables.add(Hazard(i))
 for i in Player.ALL:
-  players.append(Player(i, collideables, scoreables))
+  players.append(Player(i, collideables, scoreables, paddle_type=ComputerPaddle))
 for i in xrange(config.num_balls):
   balls.add(Ball(collideables, scoreables))
 for i in collideables:

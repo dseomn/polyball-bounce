@@ -2,23 +2,6 @@ import math
 import pygame
 import config, velocity
 
-class Player:
-  ALL = TOP, LEFT, RIGHT, BOTTOM = range(4)
-  type_name = {
-    TOP: 'Top',
-    LEFT: 'Left',
-    RIGHT: 'Right',
-    BOTTOM: 'Bottom',
-  }
-
-  def __init__(self, type, paddles, score_zones):
-    self.score = 0
-    self.type = type
-    self.name = Player.type_name[self.type]
-    self.score_zone = ScoreZone(self)
-    paddles.add(Paddle(self))
-    score_zones.add(self.score_zone)
-
 
 class Paddle(pygame.sprite.DirtySprite):
   def __init__(self, owner, speed=config.paddle['speed']):
@@ -101,3 +84,20 @@ class ScoreZone(pygame.sprite.Sprite):
     self.rect = self.image.get_rect()
     self.rect.center = config.score_zone[self.owner.type]['center']
 
+
+class Player:
+  ALL = TOP, LEFT, RIGHT, BOTTOM = range(4)
+  type_name = {
+    TOP: 'Top',
+    LEFT: 'Left',
+    RIGHT: 'Right',
+    BOTTOM: 'Bottom',
+  }
+
+  def __init__(self, type, paddles, score_zones, paddle_type=Paddle):
+    self.score = 0
+    self.type = type
+    self.name = Player.type_name[self.type]
+    self.score_zone = ScoreZone(self)
+    paddles.add(paddle_type(self))
+    score_zones.add(self.score_zone)
