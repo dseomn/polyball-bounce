@@ -5,7 +5,49 @@ import config, velocity
 class Ball(pygame.sprite.DirtySprite):
   def get_edge_destination(self):
     ret = copy.deepcopy(self)
-    # TODO: set ret.x, ret.y, ret.rect.center and return ret
+
+    # move the ret to one edge
+    if math.pi/4 <= ret.vel.angle < 3*math.pi/4: # up
+      dx, dy = ret.vel.delta(ret.y/math.sin(ret.vel.angle), speed=1)
+      ret.x += dx
+      ret.y += dy
+      assert ret.y == 0
+    elif 3*math.pi/4 <= ret.vel.angle < 5*math.pi/4: # left
+      dx, dy = ret.vel.delta(-ret.x/math.cos(ret.vel.angle), speed=1)
+      ret.x += dx
+      ret.y += dy
+      assert ret.x == 0
+    elif 5*math.pi/4 <= ret.vel.angle < 7*math.pi/4: # down
+      dx, dy = ret.vel.delta((ret.y - config.size[1])/math.sin(ret.vel.angle), speed=1)
+      ret.x += dx
+      ret.y += dy
+      assert ret.y == config.size[1]
+    else: # right
+      dx, dy = ret.vel.delta((config.size[0] - ret.x)/math.cos(ret.vel.angle), speed=1)
+      ret.x += dx
+      ret.y += dy
+      assert ret.x == config.size[0]
+
+    # if ret is out of bounds, move it back in
+    if ret.x < 0:
+      dx, dy = ret.vel.delta(ret.x/math.cos(ret.vel.angle), speed=-1)
+      ret.x += dx
+      ret.y += dy
+    elif ret.x > config.size[0]:
+      dx, dy = ret.vel.delta((ret.x - config.size[0])/math.cos(ret.vel.angle), speed=-1)
+      ret.x += dx
+      ret.y += dy
+    if ret.y < 0:
+      dx, dy = ret.vel.delta(-ret.y/math.sin(ret.vel.angle), speed=-1)
+      ret.x += dx
+      ret.y += dy
+    elif ret.y > config.size[1]:
+      dx, dy = ret.vel.delta((config.size[1] - ret.y)/math.sin(ret.vel.angle), speed=-1)
+      ret.x += dx
+      ret.y += dy
+
+    ret.rect.center = (ret.x, ret.y)
+    return ret
   edge_destination = property(get_edge_destination)
 
   def __init__(self, collideables, scoreables, start=config.ball['start'], speed=config.ball['speed'], angle=None):
