@@ -48,7 +48,17 @@ class Ball(pygame.sprite.DirtySprite):
 
     ret.rect.center = (ret.x, ret.y)
     return ret
-  edge_destination = property(get_edge_destination)
+  def get_edge_destination_cache(self):
+    cur_state = (copy.deepcopy(self.vel), self.x, self.y)
+    try:
+      if self._edge_destination_state is cur_state:
+        return self._edge_destination
+    except AttributeError:
+      pass
+    self._edge_destination = self.get_edge_destination()
+    self._edge_destination_state = cur_state
+    return self._edge_destination
+  edge_destination = property(get_edge_destination_cache)
 
   def __init__(self, collideables, scoreables, start=config.ball['start'], speed=config.ball['speed'], angle=None):
     pygame.sprite.DirtySprite.__init__(self)
