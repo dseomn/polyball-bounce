@@ -12,7 +12,7 @@ class Paddle(pygame.sprite.DirtySprite):
       self.pos_angle = 0
       self.image = pygame.Surface(config.paddle['size_horizontal'])
     elif self.owner.type in (Player.LEFT, Player.RIGHT):
-      self.pos_angle = math.pi/2
+      self.pos_angle = 3*math.pi/2
       self.image = pygame.Surface(config.paddle['size_vertical'])
 
     if self.owner.type == Player.TOP:
@@ -58,9 +58,21 @@ class ComputerPaddle(Paddle):
   def update(self):
     ball = self.find_closest()
     if ball is None:
-      pass # TODO: move towards center
+      to_x = config.size[0]/2
+      to_y = config.size[1]/2
     else:
-      pass # TODO: move towards ball
+      to_x = ball.edge_destination.x
+      to_y = ball.edge_destination.y
+    if self.owner.type in (Player.TOP, Player.BOTTOM):
+      if self.x > to_x:
+        self.move_neg()
+      else:
+        self.move_pos()
+    elif self.owner.type in (Player.LEFT, Player.RIGHT):
+      if self.y > ball.to_y:
+        self.move_neg()
+      else:
+        self.move_pos()
 
   def find_closest(self):
     "returns the Ball heading towards this Player's score zone that's closest to this Paddle"
