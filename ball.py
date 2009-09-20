@@ -58,7 +58,7 @@ class Ball(pygame.sprite.DirtySprite):
         dist = math.sqrt(dx*dx + dy*dy)
         return (dx, dy) == (dist*math.cos(state1[0]), dist*math.sin(state1[0]))
       return False
-    cur_state = (self.vel.angle, self.x, self.y)
+    cur_state = (self.vel.angle, self.rect.centerx, self.rect.centery)
     try:
       if cmp_state(self._edge_destination_state, cur_state):
         return self._edge_destination
