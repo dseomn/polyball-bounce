@@ -29,6 +29,7 @@ for i in collideables:
   i.balls = balls
 
 while True:
+  ticks = pygame.time.get_ticks()
   for event in pygame.event.get():
     if event.type == pygame.QUIT: sys.exit()
 
@@ -41,4 +42,4 @@ while True:
   paddles.draw(screen)
   hazards.draw(screen)
   pygame.display.flip()
-  time.sleep(config.sleep)
+  pygame.time.wait(max(0, config.sleep - (pygame.time.get_ticks() - ticks)))

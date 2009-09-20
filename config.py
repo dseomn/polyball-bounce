@@ -6,7 +6,7 @@ size = (400, 400)
 
 speed = 3
 
-sleep = 0.01
+sleep = 25 # in milliseconds
 
 num_balls = 2
 
