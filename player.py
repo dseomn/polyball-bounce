@@ -27,6 +27,7 @@ class Paddle(pygame.sprite.DirtySprite):
       self.normal = math.pi/2
 
     self.vel = velocity.Velocity(0, 0)
+    self.speed = speed
     self.image.fill(config.colors['fg'])
     self.image.set_colorkey(config.colors['bg'])
     self.rect = self.image.get_rect()
@@ -84,7 +85,7 @@ class ComputerPaddle(Paddle):
       else:
         self.move_pos()
     elif self.owner.type in (Player.LEFT, Player.RIGHT):
-      if self.y > ball.to_y:
+      if self.y > to_y:
         self.move_neg()
       else:
         self.move_pos()
