@@ -1,3 +1,4 @@
+margin = 0.01 # margin of error for various floating point comparisons
 
 size = (400, 400)
 

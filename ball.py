@@ -11,22 +11,22 @@ class Ball(pygame.sprite.DirtySprite):
       dx, dy = ret.vel.delta(ret.y/math.sin(ret.vel.angle), speed=1)
       ret.x += dx
       ret.y += dy
-      assert ret.y == 0
+      assert -config.margin < ret.y < config.margin
     elif 3*math.pi/4 <= ret.vel.angle < 5*math.pi/4: # left
       dx, dy = ret.vel.delta(-ret.x/math.cos(ret.vel.angle), speed=1)
       ret.x += dx
       ret.y += dy
-      assert ret.x == 0
+      assert -config.margin < ret.x < config.margin
     elif 5*math.pi/4 <= ret.vel.angle < 7*math.pi/4: # down
       dx, dy = ret.vel.delta((ret.y - config.size[1])/math.sin(ret.vel.angle), speed=1)
       ret.x += dx
       ret.y += dy
-      assert ret.y == config.size[1]
+      assert -config.margin < ret.y - config.size[1] < config.margin
     else: # right
       dx, dy = ret.vel.delta((config.size[0] - ret.x)/math.cos(ret.vel.angle), speed=1)
       ret.x += dx
       ret.y += dy
-      assert ret.x == config.size[0]
+      assert -config.margin < ret.x - config.size[0] < config.margin
 
     # if ret is out of bounds, move it back in
     if ret.x < 0:
@@ -56,7 +56,8 @@ class Ball(pygame.sprite.DirtySprite):
         dx = state2[1] - state1[1]
         dy = state1[2] - state2[2]
         dist = math.sqrt(dx*dx + dy*dy)
-        return (dx, dy) == (dist*math.cos(state1[0]), dist*math.sin(state1[0]))
+        return -config.margin < dx - dist*math.cos(state1[0]) < config.margin\
+          and -config.margin < dy - dist*math.sin(state1[0]) < config.margin
       return False
     cur_state = (self.vel.angle, self.rect.centerx, self.rect.centery)
     try:
