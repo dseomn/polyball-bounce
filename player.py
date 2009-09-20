@@ -80,12 +80,16 @@ class ComputerPaddle(Paddle):
       to_x = ball.edge_destination.x
       to_y = ball.edge_destination.y
     if self.owner.type in (Player.TOP, Player.BOTTOM):
-      if self.x > to_x:
+      if -config.pixel_margin < self.x - to_x < config.pixel_margin:
+        self.move_stop()
+      elif self.x > to_x:
         self.move_neg()
       else:
         self.move_pos()
     elif self.owner.type in (Player.LEFT, Player.RIGHT):
-      if self.y > to_y:
+      if -config.pixel_margin < self.y - to_y < config.pixel_margin:
+        self.move_stop()
+      elif self.y > to_y:
         self.move_neg()
       else:
         self.move_pos()

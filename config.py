@@ -1,4 +1,6 @@
-margin = 0.01 # margin of error for various floating point comparisons
+# margin of error for various floating point comparisons
+margin = 0.01
+pixel_margin = 1.5
 
 size = (400, 400)
 
