@@ -4,10 +4,11 @@ import config, velocity
 
 
 class Paddle(pygame.sprite.DirtySprite):
-  def __init__(self, owner, hazards, speed=config.paddle['speed']):
+  def __init__(self, owner, hazards, balls, speed=config.paddle['speed']):
     pygame.sprite.DirtySprite.__init__(self)
     self.owner = owner
     self.hazards = hazards
+    self.balls = balls
 
     if self.owner.type in (Player.TOP, Player.BOTTOM):
       self.pos_angle = 0
@@ -93,7 +94,7 @@ class ComputerPaddle(Paddle):
     "returns the Ball heading towards this Player's score zone that's closest to this Paddle"
     min_dist = math.sqrt(config.size[0]**2 + config.size[1]**2)
     min_ball = None
-    for ball in balls:
+    for ball in self.balls:
       if not pygame.sprite.collide_mask(ball.edge_destination, self.owner.score_zone):
         continue
       dist = math.sqrt( (self.x - ball.x)**2 + (self.y - ball.y)**2 )
@@ -121,10 +122,10 @@ class Player:
     BOTTOM: 'Bottom',
   }
 
-  def __init__(self, type, paddles, score_zones, hazards, paddle_type=Paddle):
+  def __init__(self, type, paddles, score_zones, hazards, balls, paddle_type=Paddle):
     self.score = 0
     self.type = type
     self.name = Player.type_name[self.type]
     self.score_zone = ScoreZone(self)
-    paddles.add(paddle_type(self, hazards))
+    paddles.add(paddle_type(self, hazards, balls))
     score_zones.add(self.score_zone)

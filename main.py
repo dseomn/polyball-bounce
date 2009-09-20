@@ -20,7 +20,7 @@ balls = pygame.sprite.Group()
 for i in Hazard.ALL:
   hazards.add(Hazard(i))
 for i in Player.ALL:
-  players.append(Player(i, paddles, score_zones, hazards, paddle_type=ComputerPaddle))
+  players.append(Player(i, paddles, score_zones, hazards, balls, paddle_type=ComputerPaddle))
 collideables.add(hazards)
 collideables.add(paddles)
 for i in xrange(config.num_balls):
