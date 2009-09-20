@@ -49,9 +49,18 @@ class Ball(pygame.sprite.DirtySprite):
     ret.rect.center = (ret.x, ret.y)
     return ret
   def get_edge_destination_cache(self):
+    def cmp_state(state1, state2):
+      if state1 == state2:
+        return True
+      if state1[0] == state2[0]:
+        dx = state2[1] - state1[1]
+        dy = state1[2] - state2[2]
+        dist = math.sqrt(dx*dx + dy*dy)
+        return (dx, dy) == (dist*math.cos(state1[0]), dist*math.sin(state1[0]))
+      return False
     cur_state = (self.vel.angle, self.x, self.y)
     try:
-      if self._edge_destination_state is cur_state:
+      if cmp_state(self._edge_destination_state, cur_state):
         return self._edge_destination
     except AttributeError:
       pass
