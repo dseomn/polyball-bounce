@@ -99,6 +99,7 @@ class Ball(pygame.sprite.DirtySprite):
     self.prev_collided = cur_collided
     for scored in pygame.sprite.spritecollide(self, self.scoreables, False, pygame.sprite.collide_mask):
       scored.owner.score -= 1
+      if self.owner is not None: self.owner.score += 1
       self.kill()
       return
     deltax, deltay = self.vel.delta(config.speed)
