@@ -29,7 +29,7 @@ paddle = {
   'size_horizontal': (60, 4),
   'size_vertical': (4, 60),
 }
-from player import Player
+from player import Player, ComputerPaddle, HumanPaddle
 paddle['center']= {
   Player.TOP: (200, 6),
   Player.LEFT: (6, 200),
@@ -47,6 +47,12 @@ paddle['key_neg'] = {
   Player.LEFT: pygame.K_a,
   Player.RIGHT: pygame.K_UP,
   Player.BOTTOM: pygame.K_PERIOD,
+}
+paddle['paddle_type'] = {
+  Player.TOP: ComputerPaddle,
+  Player.LEFT: HumanPaddle,
+  Player.RIGHT: ComputerPaddle,
+  Player.BOTTOM: ComputerPaddle,
 }
 
 score_zone = {

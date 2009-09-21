@@ -9,7 +9,7 @@ screen = pygame.display.set_mode((config.size[0], config.size[1]+config.border_s
 
 from ball import Ball
 from hazard import Hazard
-from player import Player, ComputerPaddle
+from player import Player
 
 
 def get_score_string(players):
@@ -28,7 +28,7 @@ balls = pygame.sprite.Group()
 for i in Hazard.ALL:
   hazards.add(Hazard(i))
 for i in Player.ALL:
-  players.append(Player(i, paddles, score_zones, hazards, balls, paddle_type=ComputerPaddle))
+  players.append(Player(i, paddles, score_zones, hazards, balls, paddle_type=config.paddle['paddle_type'][i]))
 for i in players:
   try:
     keys_down[i.paddle.key_pos] = i.paddle.move_pos
