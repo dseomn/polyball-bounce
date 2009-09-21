@@ -3,6 +3,8 @@ margin = 0.01
 pixel_margin = 1.5
 
 size = (400, 400)
+font_size = 14
+border_size = 3
 
 speed = 3
 
@@ -41,6 +43,7 @@ score_zone = {
 }
 
 colors = {
-  'bg': (255, 255, 255),
-  'fg': (  0,   0,   0),
+  'bg':     (255, 255, 255),
+  'fg':     (  0,   0,   0),
+  'border': (127, 127, 127),
 }
