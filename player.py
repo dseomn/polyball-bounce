@@ -66,8 +66,10 @@ class Paddle(pygame.sprite.DirtySprite):
 
 
 class HumanPaddle(Paddle):
-  def update(self):
-    pass
+  def __init__(self, owner, hazards, balls, speed=config.paddle['speed']):
+    Paddle.__init__(self, owner, hazards, balls, speed=speed)
+    self.key_pos = config.paddle['key_pos'][self.owner.type]
+    self.key_neg = config.paddle['key_neg'][self.owner.type]
 
 
 class ComputerPaddle(Paddle):
@@ -132,5 +134,6 @@ class Player:
     self.type = type
     self.name = Player.type_name[self.type]
     self.score_zone = ScoreZone(self)
-    paddles.add(paddle_type(self, hazards, balls))
+    self.paddle = paddle_type(self, hazards, balls)
+    paddles.add(self.paddle)
     score_zones.add(self.score_zone)

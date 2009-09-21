@@ -1,3 +1,5 @@
+import pygame
+
 # margin of error for various floating point comparisons
 margin = 0.01
 pixel_margin = 1.5
@@ -33,6 +35,18 @@ paddle['center']= {
   Player.LEFT: (6, 200),
   Player.RIGHT: (394, 200),
   Player.BOTTOM: (200, 394),
+}
+paddle['key_pos'] = {
+  Player.TOP: pygame.K_6,
+  Player.LEFT: pygame.K_z,
+  Player.RIGHT: pygame.K_DOWN,
+  Player.BOTTOM: pygame.K_SLASH,
+}
+paddle['key_neg'] = {
+  Player.TOP: pygame.K_5,
+  Player.LEFT: pygame.K_a,
+  Player.RIGHT: pygame.K_UP,
+  Player.BOTTOM: pygame.K_PERIOD,
 }
 
 score_zone = {

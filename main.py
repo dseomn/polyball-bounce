@@ -18,6 +18,8 @@ def get_score_string(players):
 
 # set up objects on the game board
 players = []
+keys_up = {}
+keys_down = {}
 hazards = pygame.sprite.Group()
 paddles = pygame.sprite.Group()
 collideables = pygame.sprite.Group()
@@ -27,6 +29,14 @@ for i in Hazard.ALL:
   hazards.add(Hazard(i))
 for i in Player.ALL:
   players.append(Player(i, paddles, score_zones, hazards, balls, paddle_type=ComputerPaddle))
+for i in players:
+  try:
+    keys_down[i.paddle.key_pos] = i.paddle.move_pos
+    keys_down[i.paddle.key_neg] = i.paddle.move_neg
+    keys_up[i.paddle.key_pos] = i.paddle.move_stop
+    keys_up[i.paddle.key_neg] = i.paddle.move_stop
+  except AttributeError:
+    pass
 collideables.add(hazards)
 collideables.add(paddles)
 for i in xrange(config.num_balls):
@@ -43,7 +53,18 @@ score_report = pygame.Rect(0, config.size[1]+config.border_size, config.size[0],
 while True:
   ticks = pygame.time.get_ticks()
   for event in pygame.event.get():
-    if event.type == pygame.QUIT: sys.exit()
+    if event.type == pygame.QUIT:
+      sys.exit()
+    elif event.type == pygame.KEYDOWN:
+      try:
+        keys_down[event.key]()
+      except KeyError:
+        pass
+    elif event.type == pygame.KEYUP:
+      try:
+        keys_up[event.key]()
+      except KeyError:
+        pass
 
   balls.update()
   paddles.update()
