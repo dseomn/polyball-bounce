@@ -3,7 +3,7 @@ margin = 0.01
 pixel_margin = 1.5
 
 size = (400, 400)
-font_size = 14
+font_size = 16
 border_size = 3
 
 speed = 3
@@ -18,14 +18,14 @@ ball = {
 }
 
 hazard = {
-  'size': (100, 100),
+  'size': (75, 75),
   'width': 4,
 }
 
 paddle = {
   'speed': 1, # ratio relative to config.speed above
-  'size_horizontal': (75, 4),
-  'size_vertical': (4, 75),
+  'size_horizontal': (60, 4),
+  'size_vertical': (4, 60),
 }
 from player import Player
 paddle['center']= {
@@ -36,10 +36,10 @@ paddle['center']= {
 }
 
 score_zone = {
-  Player.TOP: {'center': (200, 2), 'size': (200, 4)},
-  Player.LEFT: {'center': (2, 200), 'size': (4, 200)},
-  Player.RIGHT: {'center': (398, 200), 'size': (4, 200)},
-  Player.BOTTOM: {'center': (200, 398), 'size': (200, 4)},
+  Player.TOP: {'center': (200, 2), 'size': (250, 4)},
+  Player.LEFT: {'center': (2, 200), 'size': (4, 250)},
+  Player.RIGHT: {'center': (398, 200), 'size': (4, 250)},
+  Player.BOTTOM: {'center': (200, 398), 'size': (250, 4)},
 }
 
 colors = {
