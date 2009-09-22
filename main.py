@@ -1,10 +1,11 @@
-import sys, time, random, string
+import sys, time, random, string, os
 import pygame
 import config
 
 pygame.init()
 
 pygame.display.set_caption(config.name)
+pygame.display.set_icon(pygame.image.load(os.path.join('data', 'icon.png')))
 screen = pygame.display.set_mode((config.size[0], config.size[1]+config.border_size+config.font_size))
 
 
