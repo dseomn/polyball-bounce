@@ -4,6 +4,7 @@ import config
 
 pygame.init()
 
+pygame.display.set_caption(config.name)
 screen = pygame.display.set_mode((config.size[0], config.size[1]+config.border_size+config.font_size))
 
 

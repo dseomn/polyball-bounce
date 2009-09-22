@@ -1,5 +1,7 @@
 import pygame
 
+name = 'Polyball Bounce'
+
 # margin of error for various floating point comparisons
 margin = 0.01
 pixel_margin = 1.5
