@@ -1,3 +1,7 @@
 * make the game winnable when a player has more than X points and a lead of at least Y points
 
 * make (some) of config available on the command line or in-game
+
+* add bonuses (bigger/smaller paddle, faster/slower paddle, etc.) that move like balls
+
+* color?
