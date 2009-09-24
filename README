@@ -1,0 +1,15 @@
+Polyball Bounce 0.1.0 alpha
+
+= Installing and Running =
+
+This program requires python[0] and pygame[1]. Once those are both installed, run main.py in python.
+
+ [0] http://python.org/
+ [1] http://pygame.org/
+
+
+= Bugs and Feature Requests =
+
+This is an *alpha* release. I'm still working on it. That said, feel free to report any bugs to <david@mandelberg.org>.
+
+New versions will be available at <http://david.mandelberg.org/computers/polyball-bounce/>.
