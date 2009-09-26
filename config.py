@@ -19,7 +19,7 @@ num_balls = 2
 
 ball = {
   'start': (200, 200),
-  'speed': 1.0, # ratio relative to config.speed above
+  'speed': 1.5, # ratio relative to config.speed above
 }
 
 hazard = {
