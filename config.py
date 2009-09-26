@@ -8,7 +8,8 @@ pixel_margin = 1.5
 
 size = (400, 400)
 font_size = 16
-border_size = 3
+border_size = 2
+margin_size = 2
 
 speed = 3
 

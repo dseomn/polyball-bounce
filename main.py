@@ -6,7 +6,8 @@ pygame.init()
 
 pygame.display.set_caption(config.name)
 pygame.display.set_icon(pygame.image.load(os.path.join('data', 'icon.png')))
-screen = pygame.display.set_mode((config.size[0], config.size[1]+config.border_size+config.font_size))
+screen = pygame.display.set_mode((config.size[0]+2*config.border_size, config.size[1]+2*config.border_size+config.font_size+config.margin_size))
+game_area = pygame.Surface(config.size)
 
 
 from ball import Ball
@@ -48,9 +49,15 @@ for i in collideables:
 
 
 # set up score reporting and border(s)
-borders = [pygame.Rect(0, config.size[1], config.size[0], config.border_size)]
+borders = [
+  pygame.Rect(0, 0, config.size[0]+2*config.border_size, config.border_size), # top
+  pygame.Rect(0, 0, config.border_size, config.size[1]+2*config.border_size), # left
+  pygame.Rect(config.size[0]+config.border_size, 0, config.border_size, config.size[1]+2*config.border_size), # right
+  pygame.Rect(0, config.size[1]+config.border_size, config.size[0]+2*config.border_size, config.border_size), # bottom
+]
+game_area_rect = pygame.Rect(config.border_size, config.border_size, config.size[0], config.size[1])
 font = pygame.font.Font(None, config.font_size)
-score_report = pygame.Rect(0, config.size[1]+config.border_size, config.size[0], config.font_size)
+score_report = pygame.Rect(0, config.size[1]+2*config.border_size+config.margin_size, config.size[0]+config.border_size, config.font_size)
 
 while True:
   ticks = pygame.time.get_ticks()
@@ -73,11 +80,13 @@ while True:
   while len(balls) < config.num_balls:
     balls.add(Ball(collideables, score_zones))
   screen.fill(config.colors['bg'])
+  game_area.fill(config.colors['bg'])
   for i in borders:
     screen.fill(config.colors['border'], i)
-  balls.draw(screen)
-  paddles.draw(screen)
-  hazards.draw(screen)
+  balls.draw(game_area)
+  paddles.draw(game_area)
+  hazards.draw(game_area)
+  screen.blit(game_area, game_area_rect)
   screen.blit(font.render(get_score_string(players), True, config.colors['fg']), score_report)
   pygame.display.flip()
   pygame.time.wait(max(0, config.sleep - (pygame.time.get_ticks() - ticks)))
