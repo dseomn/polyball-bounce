@@ -5,8 +5,10 @@ def bounce_angle(self, other):
   "compute the angle other should bounce off self"
 
   if hasattr(self, 'normal'):
+    # really simple approximation
     normal = self.normal
   else:
+    # more complex approximation
     for o in (self, other):
       if not hasattr(o, 'mask'):
         o.mask = pygame.mask.from_surface(o.image)
