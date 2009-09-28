@@ -9,6 +9,7 @@ pygame.display.set_icon(pygame.image.load(os.path.join('data', 'icon.png')))
 screen = pygame.display.set_mode((config.size[0]+2*config.border_size, config.size[1]+2*config.border_size+config.font_size+config.margin_size))
 game_area = pygame.Surface(config.size)
 paused = False
+winner = None
 
 
 from ball import Ball
@@ -18,7 +19,8 @@ from player import Player
 
 def get_status_string(players):
   parts = [str.format('{0.name: >8}: {0.score: <4}', i) for i in players]
-  if paused: parts += ['***PAUSED***']
+  if winner is not None: parts += ['Winner: ' + winner.name]
+  elif paused: parts += ['***PAUSED***']
   return string.join(parts, '  ')
 
 
@@ -80,7 +82,9 @@ while True:
       except KeyError:
         pass
 
-  if not paused:
+  winner = config.get_winner(players)
+
+  if not paused and winner is None:
     balls.update()
     paddles.update()
     while len(balls) < config.num_balls:

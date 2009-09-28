@@ -65,6 +65,26 @@ score_zone = {
   Player.BOTTOM: {'center': (200, 407), 'size': (400, 10)},
 }
 
+# return the winner of the game, or None if there is no winner
+def get_winner(players):
+  second = None
+  first = None
+  for p in players:
+    if first is None:
+      first = p
+    elif p.score > first.score:
+      second = first
+      first = p
+    elif second is None or p.score > second.score:
+      second = p
+  if first.score < 5:
+    return None
+  if second is None:
+    return first
+  if first.score - second.score >= 2:
+    return first
+  return None
+
 colors = {
   'bg':     (255, 255, 255),
   'fg':     (  0,   0,   0),
