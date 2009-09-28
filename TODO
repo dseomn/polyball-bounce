@@ -3,3 +3,5 @@
 * add bonuses (bigger/smaller paddle, faster/slower paddle, etc.) that move like balls
 
 * color?
+
+* find out if ball.Ball.get_edge_destination_cache is actually worth the code it adds
