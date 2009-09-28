@@ -95,8 +95,9 @@ score_zone = {
 }
 
 help_string = """\
-Ctrl-N: new game
-Ctrl-P: pause
+Ctrl-N: New game
+Ctrl-P: Pause
+Ctrl-Q: Quit
 
 Controls
   Top: 5 6

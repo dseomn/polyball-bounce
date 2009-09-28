@@ -76,8 +76,10 @@ def play():
           pass
         if event.key == pygame.K_PAUSE or (event.key == pygame.K_p and event.mod & pygame.KMOD_CTRL):
           paused = not paused
-        if event.key == pygame.K_n and event.mod & pygame.KMOD_CTRL:
+        elif event.key == pygame.K_n and event.mod & pygame.KMOD_CTRL:
           return
+        elif event.key == pygame.K_q and event.mod & pygame.KMOD_CTRL:
+          sys.exit()
       elif event.type == pygame.KEYUP:
         try:
           keys_up[event.key]()
