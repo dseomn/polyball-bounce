@@ -1,6 +1,6 @@
 import os, math
 import pygame
-import config
+import config, util
 
 class Hazard(pygame.sprite.Sprite):
   ALL = TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT = range(4)
@@ -28,6 +28,4 @@ class Hazard(pygame.sprite.Sprite):
       self.rect = pygame.draw.polygon(self.image, config.colors['fg'], (config.hazard['size'], (config.hazard['size'][0],0), (0,config.hazard['size'][1])))
       self.rect = self.rect.move((config.size[0] - config.hazard['size'][0], config.size[1] - config.hazard['size'][1]))
   
-  def bounce_angle(self, angle):
-    "compute the angle something should bounce off of this hazard"
-    return 2*self.normal - angle + math.pi
+  bounce_angle = util.bounce_angle

@@ -1,6 +1,6 @@
 import math
 import pygame
-import config, velocity
+import config, velocity, util
 
 
 class Paddle(pygame.sprite.DirtySprite):
@@ -36,9 +36,7 @@ class Paddle(pygame.sprite.DirtySprite):
     self.y = self.rect.centery
     self.dirty = 1
 
-  def bounce_angle(self, angle):
-    "compute the angle something should bounce off of this hazard"
-    return 2*self.normal - angle + math.pi
+  bounce_angle = util.bounce_angle
 
   def move_pos(self):
     self.vel.speed = self.speed
