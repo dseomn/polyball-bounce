@@ -3,14 +3,25 @@ import pygame
 import config, util
 
 class Hazard(pygame.sprite.Sprite):
-  ALL = TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT = range(4)
+  ALL = TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, OTHER = range(5)
   
-  def __init__(self, type):
+  def __init__(self, type=OTHER, rect=None, image=None, update=None):
     pygame.sprite.Sprite.__init__(self)
-    self.image = pygame.Surface(config.hazard['size'])
-    self.image.fill(config.colors['bg'])
-    self.image.set_colorkey(config.colors['bg'])
-    self.rect = self.image.get_rect()
+
+    if image is None:
+      self.image = pygame.Surface(config.hazard['size'])
+      self.image.fill(config.colors['bg'])
+      self.image.set_colorkey(config.colors['bg'])
+    else:
+      self.image = image
+
+    if rect is None:
+      self.rect = self.image.get_rect()
+    else:
+      self.rect = rect
+
+    if update is not None:
+      self.update = update
 
     if type == Hazard.TOP_LEFT:
       self.normal = 7*math.pi/4
