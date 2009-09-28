@@ -45,6 +45,8 @@ def play():
   balls = pygame.sprite.Group()
   for i in Hazard.ALL:
     hazards.add(Hazard(i))
+  for i in config.hazard['custom']:
+    hazards.add(Hazard(**i))
   for i in Player.ALL:
     players.append(Player(i, paddles, score_zones, hazards, balls, paddle_type=config.paddle['paddle_type'][i]))
   for i in players:
