@@ -24,7 +24,6 @@ ball = {
 
 hazard = {
   'size': (75, 75),
-  'width': 4,
 }
 
 paddle = {

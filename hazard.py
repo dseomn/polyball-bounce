@@ -12,21 +12,20 @@ class Hazard(pygame.sprite.Sprite):
     self.image.set_colorkey(config.colors['bg'])
     self.rect = self.image.get_rect()
 
-    if type in (Hazard.TOP_LEFT, Hazard.BOTTOM_RIGHT):
-      self.rect = pygame.draw.line(self.image, config.colors['fg'], (0,config.hazard['size'][1]), (config.hazard['size'][0],0), config.hazard['width'])
-    elif type in (Hazard.TOP_RIGHT, Hazard.BOTTOM_LEFT):
-      self.rect = pygame.draw.line(self.image, config.colors['fg'], (0,0), config.hazard['size'], config.hazard['width'])
-
     if type == Hazard.TOP_LEFT:
       self.normal = 7*math.pi/4
+      self.rect = pygame.draw.polygon(self.image, config.colors['fg'], ((0,0), (config.hazard['size'][0],0), (0,config.hazard['size'][1])))
     elif type == Hazard.TOP_RIGHT:
       self.normal = 5*math.pi/4
-      self.rect = self.rect.move((0, config.size[1] - config.hazard['size'][1]))
+      self.rect = pygame.draw.polygon(self.image, config.colors['fg'], ((0,0), (config.hazard['size'][0],0), config.hazard['size']))
+      self.rect = self.rect.move((config.size[0] - config.hazard['size'][0], 0))
     elif type == Hazard.BOTTOM_LEFT:
       self.normal = math.pi/4
-      self.rect = self.rect.move((config.size[0] - config.hazard['size'][0], 0))
+      self.rect = pygame.draw.polygon(self.image, config.colors['fg'], ((0,0), config.hazard['size'], (0,config.hazard['size'][1])))
+      self.rect = self.rect.move((0, config.size[1] - config.hazard['size'][1]))
     elif type == Hazard.BOTTOM_RIGHT:
       self.normal = 3*math.pi/4
+      self.rect = pygame.draw.polygon(self.image, config.colors['fg'], (config.hazard['size'], (config.hazard['size'][0],0), (0,config.hazard['size'][1])))
       self.rect = self.rect.move((config.size[0] - config.hazard['size'][0], config.size[1] - config.hazard['size'][1]))
   
   def bounce_angle(self, angle):
