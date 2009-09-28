@@ -7,7 +7,7 @@ margin = 0.01
 pixel_margin = 1.5
 
 size = (400, 400)
-font_size = 16
+font_size = 20
 border_size = 2
 margin_size = 4
 
@@ -94,8 +94,16 @@ score_zone = {
   Player.BOTTOM: {'center': (200, 407), 'size': (400, 10)},
 }
 
-help_string = 'Ctrl-N: new game   Ctrl-P: pause'
-help_width = 150
+help_string = """\
+Ctrl-N: new game
+Ctrl-P: pause
+
+Controls
+  Top: 5 6
+  Left: A Z
+  Right: Up Down
+  Bottom: . /"""
+help_width = 120
 
 # return the winner of the game, or None if there is no winner
 def get_winner(players):
