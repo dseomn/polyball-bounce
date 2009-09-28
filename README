@@ -8,6 +8,12 @@ This program requires python[0] and pygame[1]. Once those are both installed, ru
  [1] http://pygame.org/
 
 
+= Playing =
+
+By default, the top, right, and bottom players are computer controlled and the left player is controlled by the A and Z keys.
+Pressing Ctrl-P pauses the game.
+
+
 = Bugs and Feature Requests =
 
 This is an *alpha* release. I'm still working on it. That said, feel free to report any bugs to <david@mandelberg.org>.
