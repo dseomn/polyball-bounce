@@ -59,7 +59,7 @@ def play():
       pass
   collideables.add(hazards)
   collideables.add(paddles)
-  for i in xrange(config.num_balls):
+  for i in xrange(config.ball['num']):
     balls.add(Ball(collideables, score_zones))
   for i in collideables:
     i.balls = balls
@@ -91,7 +91,7 @@ def play():
       hazards.update()
       paddles.update()
       balls.update()
-      while len(balls) < config.num_balls:
+      while len(balls) < config.ball['num']:
         balls.add(Ball(collideables, score_zones))
   
     screen.fill(config.colors['bg'])

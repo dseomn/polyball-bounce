@@ -21,9 +21,8 @@ colors = {
   'border': (127, 127, 127),
 }
 
-num_balls = 2
-
 ball = {
+  'num': 2,
   'start': (200, 200),
   'speed': 1.5, # ratio relative to config.speed above
 }
@@ -54,7 +53,7 @@ hazard = {
   # additional hazards
   'custom': [
     {'rect': pygame.Rect(110, 110, 30, 30), 'image': _hazard_square, 'update': _hazard_update},
-  ]
+  ],
 }
 
 paddle = {
