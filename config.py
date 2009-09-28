@@ -15,6 +15,12 @@ speed = 3
 
 sleep = 25 # in milliseconds
 
+colors = {
+  'bg':     (255, 255, 255),
+  'fg':     (  0,   0,   0),
+  'border': (127, 127, 127),
+}
+
 num_balls = 2
 
 ball = {
@@ -22,8 +28,33 @@ ball = {
   'speed': 1.5, # ratio relative to config.speed above
 }
 
+_hazard_square = pygame.Surface((30,30))
+_hazard_square.fill(colors['fg'])
+_hazard_square.set_colorkey(colors['bg'])
+def _hazard_update(self):
+  if not hasattr(self, 'dir'):
+    self.dir = (1,0)
+  if self.rect.centery < 120:
+    self.rect.centery = 120
+    self.dir = (1,0)
+  elif self.rect.centerx > 280:
+    self.rect.centerx = 280
+    self.dir = (0,1)
+  elif self.rect.centery > 280:
+    self.rect.centery = 280
+    self.dir = (-1,0)
+  elif self.rect.centerx < 120:
+    self.rect.centerx = 120
+    self.dir = (0,-1)
+  self.rect.centerx += self.dir[0]
+  self.rect.centery += self.dir[1]
 hazard = {
   'size': (75, 75),
+
+  # additional hazards
+  'custom': [
+    {'rect': pygame.Rect(110, 110, 30, 30), 'image': _hazard_square, 'update': _hazard_update},
+  ]
 }
 
 paddle = {
@@ -83,9 +114,3 @@ def get_winner(players):
   if first.score - second.score >= 2:
     return first
   return None
-
-colors = {
-  'bg':     (255, 255, 255),
-  'fg':     (  0,   0,   0),
-  'border': (127, 127, 127),
-}
