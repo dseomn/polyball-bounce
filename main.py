@@ -6,19 +6,20 @@ pygame.init()
 
 pygame.display.set_caption(config.name)
 pygame.display.set_icon(pygame.image.load(os.path.join('data', 'icon.png')))
-screen = pygame.display.set_mode((config.size[0]+2*config.border_size, config.size[1]+2*config.border_size+config.font_size+config.margin_size))
+screen = pygame.display.set_mode((config.size[0]+2*config.border_size, config.size[1]+2*config.border_size+2*config.font_size+2*config.margin_size))
 game_area = pygame.Surface(config.size)
 
 # set up status reporting and border(s)
 borders = [
-  pygame.Rect(0, 0, config.size[0]+2*config.border_size, config.border_size), # top
-  pygame.Rect(0, 0, config.border_size, config.size[1]+2*config.border_size), # left
-  pygame.Rect(config.size[0]+config.border_size, 0, config.border_size, config.size[1]+2*config.border_size), # right
-  pygame.Rect(0, config.size[1]+config.border_size, config.size[0]+2*config.border_size, config.border_size), # bottom
+  pygame.Rect(0, config.font_size+config.margin_size, config.size[0]+2*config.border_size, config.border_size), # top
+  pygame.Rect(0, config.font_size+config.margin_size, config.border_size, config.size[1]+2*config.border_size), # left
+  pygame.Rect(config.size[0]+config.border_size, config.font_size+config.margin_size, config.border_size, config.size[1]+2*config.border_size), # right
+  pygame.Rect(0, config.size[1]+config.font_size+config.margin_size+config.border_size, config.size[0]+2*config.border_size, config.border_size), # bottom
 ]
-game_area_rect = pygame.Rect(config.border_size, config.border_size, config.size[0], config.size[1])
+game_area_rect = pygame.Rect(config.border_size, config.font_size+config.margin_size+config.border_size, config.size[0], config.size[1])
 font = pygame.font.Font(None, config.font_size)
-status_rect = pygame.Rect(0, config.size[1]+2*config.border_size+config.margin_size, config.size[0]+config.border_size, config.font_size)
+status_rect = pygame.Rect(config.border_size, config.margin_size, config.size[0], config.font_size)
+help_rect = pygame.Rect(config.border_size, config.size[1]+config.font_size+2*config.border_size+2*config.margin_size, config.size[0], config.font_size)
 
 from ball import Ball
 from hazard import Hazard
@@ -103,6 +104,7 @@ def play():
     hazards.draw(game_area)
     screen.blit(game_area, game_area_rect)
     screen.blit(font.render(get_status_string(players), True, config.colors['fg']), status_rect)
+    screen.blit(font.render(config.help_string, True, config.colors['fg']), help_rect)
     pygame.display.flip()
     pygame.time.wait(max(0, config.sleep - (pygame.time.get_ticks() - ticks)))
 

@@ -94,6 +94,8 @@ score_zone = {
   Player.BOTTOM: {'center': (200, 407), 'size': (400, 10)},
 }
 
+help_string = 'Ctrl-N: new game   Ctrl-P: pause'
+
 # return the winner of the game, or None if there is no winner
 def get_winner(players):
   second = None
