@@ -2,6 +2,11 @@ import sys, time, random, string, os
 import pygame
 import config
 
+sys.path += ['levels']
+level = __import__('simple')
+level.init(config)
+
+
 pygame.init()
 
 pygame.display.set_caption(config.name)
@@ -44,7 +49,7 @@ def play():
     hazards.add(Hazard(i))
   for i in config.hazard['custom']:
     hazards.add(Hazard(**i))
-  for i in Player.ALL:
+  for i in config.PLAYER_ALL:
     players.append(Player(i, paddles, score_zones, hazards, balls, paddle_type=config.paddle['paddle_type'][i]))
   for i in players:
     try:

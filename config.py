@@ -22,76 +22,58 @@ colors = {
 }
 
 ball = {
-  'num': 2,
   'start': (200, 200),
-  'speed': 1.5, # ratio relative to config.speed above
 }
 
-_hazard_square = pygame.Surface((30,30))
-_hazard_square.fill(colors['fg'])
-_hazard_square.set_colorkey(colors['bg'])
-def _hazard_update(self):
-  if not hasattr(self, 'dir'):
-    self.dir = (1,0)
-  if self.rect.centery < 120:
-    self.rect.centery = 120
-    self.dir = (1,0)
-  elif self.rect.centerx > 280:
-    self.rect.centerx = 280
-    self.dir = (0,1)
-  elif self.rect.centery > 280:
-    self.rect.centery = 280
-    self.dir = (-1,0)
-  elif self.rect.centerx < 120:
-    self.rect.centerx = 120
-    self.dir = (0,-1)
-  self.rect.centerx += self.dir[0]
-  self.rect.centery += self.dir[1]
 hazard = {
   'size': (75, 75),
-
-  # additional hazards
-  'custom': [
-    {'rect': (110, 110, 30, 30), 'image': _hazard_square, 'update': _hazard_update},
-  ],
 }
 
+PLAYER_ALL = PLAYER_TOP, PLAYER_LEFT, PLAYER_RIGHT, PLAYER_BOTTOM = range(4)
+PLAYER_COMPUTER, PLAYER_HUMAN = range(2)
+player = {
+  'name': {
+    PLAYER_TOP: 'Top',
+    PLAYER_LEFT: 'Left',
+    PLAYER_RIGHT: 'Right',
+    PLAYER_BOTTOM: 'Bottom',
+  },
+}
 paddle = {
-  'speed': 1, # ratio relative to config.speed above
   'size_horizontal': (60, 4),
   'size_vertical': (4, 60),
-}
-from player import Player, ComputerPaddle, HumanPaddle
-paddle['center']= {
-  Player.TOP: (200, 6),
-  Player.LEFT: (6, 200),
-  Player.RIGHT: (394, 200),
-  Player.BOTTOM: (200, 394),
-}
-paddle['key_pos'] = {
-  Player.TOP: pygame.K_6,
-  Player.LEFT: pygame.K_z,
-  Player.RIGHT: pygame.K_DOWN,
-  Player.BOTTOM: pygame.K_SLASH,
-}
-paddle['key_neg'] = {
-  Player.TOP: pygame.K_5,
-  Player.LEFT: pygame.K_a,
-  Player.RIGHT: pygame.K_UP,
-  Player.BOTTOM: pygame.K_PERIOD,
-}
-paddle['paddle_type'] = {
-  Player.TOP: ComputerPaddle,
-  Player.LEFT: HumanPaddle,
-  Player.RIGHT: ComputerPaddle,
-  Player.BOTTOM: ComputerPaddle,
+  'center': {
+    PLAYER_TOP: (200, 6),
+    PLAYER_LEFT: (6, 200),
+    PLAYER_RIGHT: (394, 200),
+    PLAYER_BOTTOM: (200, 394),
+  },
+  'key_pos': {
+    PLAYER_TOP: pygame.K_6,
+    PLAYER_LEFT: pygame.K_z,
+    PLAYER_RIGHT: pygame.K_DOWN,
+    PLAYER_BOTTOM: pygame.K_SLASH,
+  },
+
+  'key_neg': {
+    PLAYER_TOP: pygame.K_5,
+    PLAYER_LEFT: pygame.K_a,
+    PLAYER_RIGHT: pygame.K_UP,
+    PLAYER_BOTTOM: pygame.K_PERIOD,
+  },
+  'paddle_type': {
+    PLAYER_TOP: PLAYER_COMPUTER,
+    PLAYER_LEFT: PLAYER_HUMAN,
+    PLAYER_RIGHT: PLAYER_COMPUTER,
+    PLAYER_BOTTOM: PLAYER_COMPUTER,
+  },
 }
 
 score_zone = {
-  Player.TOP: {'center': (200, -7), 'size': (400, 10)},
-  Player.LEFT: {'center': (-7, 200), 'size': (10, 400)},
-  Player.RIGHT: {'center': (407, 200), 'size': (10, 400)},
-  Player.BOTTOM: {'center': (200, 407), 'size': (400, 10)},
+  PLAYER_TOP: {'center': (200, -7), 'size': (400, 10)},
+  PLAYER_LEFT: {'center': (-7, 200), 'size': (10, 400)},
+  PLAYER_RIGHT: {'center': (407, 200), 'size': (10, 400)},
+  PLAYER_BOTTOM: {'center': (200, 407), 'size': (400, 10)},
 }
 
 help_string = """\

@@ -10,20 +10,20 @@ class Paddle(pygame.sprite.DirtySprite):
     self.hazards = hazards
     self.balls = balls
 
-    if self.owner.type in (Player.TOP, Player.BOTTOM):
+    if self.owner.type in (config.PLAYER_TOP, config.PLAYER_BOTTOM):
       self.pos_angle = 0
       self.image = pygame.Surface(config.paddle['size_horizontal'])
-    elif self.owner.type in (Player.LEFT, Player.RIGHT):
+    elif self.owner.type in (config.PLAYER_LEFT, config.PLAYER_RIGHT):
       self.pos_angle = 3*math.pi/2
       self.image = pygame.Surface(config.paddle['size_vertical'])
 
-    if self.owner.type == Player.TOP:
+    if self.owner.type == config.PLAYER_TOP:
       self.normal = 3*math.pi/2
-    elif self.owner.type == Player.LEFT:
+    elif self.owner.type == config.PLAYER_LEFT:
       self.normal = 0
-    elif self.owner.type == Player.RIGHT:
+    elif self.owner.type == config.PLAYER_RIGHT:
       self.normal = math.pi
-    elif self.owner.type == Player.BOTTOM:
+    elif self.owner.type == config.PLAYER_BOTTOM:
       self.normal = math.pi/2
 
     self.vel = velocity.Velocity(0, 0)
@@ -79,14 +79,14 @@ class ComputerPaddle(Paddle):
     else:
       to_x = ball.edge_destination.x
       to_y = ball.edge_destination.y
-    if self.owner.type in (Player.TOP, Player.BOTTOM):
+    if self.owner.type in (config.PLAYER_TOP, config.PLAYER_BOTTOM):
       if -config.pixel_margin < self.x - to_x < config.pixel_margin:
         self.move_stop()
       elif self.x > to_x:
         self.move_neg()
       else:
         self.move_pos()
-    elif self.owner.type in (Player.LEFT, Player.RIGHT):
+    elif self.owner.type in (config.PLAYER_LEFT, config.PLAYER_RIGHT):
       if -config.pixel_margin < self.y - to_y < config.pixel_margin:
         self.move_stop()
       elif self.y > to_y:
@@ -118,20 +118,18 @@ class ScoreZone(pygame.sprite.Sprite):
     self.rect.center = config.score_zone[self.owner.type]['center']
 
 
-class Player:
-  ALL = TOP, LEFT, RIGHT, BOTTOM = range(4)
-  type_name = {
-    TOP: 'Top',
-    LEFT: 'Left',
-    RIGHT: 'Right',
-    BOTTOM: 'Bottom',
-  }
+_paddle_class = {
+  config.PLAYER_COMPUTER: ComputerPaddle,
+  config.PLAYER_HUMAN: HumanPaddle,
+}
 
+
+class Player:
   def __init__(self, type, paddles, score_zones, hazards, balls, paddle_type=Paddle):
     self.score = 0
     self.type = type
-    self.name = Player.type_name[self.type]
+    self.name = config.player['name'][self.type]
     self.score_zone = ScoreZone(self)
-    self.paddle = paddle_type(self, hazards, balls)
+    self.paddle = _paddle_class[paddle_type](self, hazards, balls)
     paddles.add(self.paddle)
     score_zones.add(self.score_zone)
