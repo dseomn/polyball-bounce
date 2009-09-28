@@ -22,7 +22,7 @@ class Hazard(pygame.sprite.Sprite):
       self.rect = rect
 
     if update is not None:
-      self.update = update
+      self._update = update
 
     if type == Hazard.TOP_LEFT:
       self.normal = 7*math.pi/4
@@ -41,3 +41,9 @@ class Hazard(pygame.sprite.Sprite):
       self.rect = self.rect.move((config.size[0] - config.hazard['size'][0], config.size[1] - config.hazard['size'][1]))
   
   bounce_angle = util.bounce_angle
+
+  def update(self):
+    try:
+      self._update(self)
+    except AttributeError:
+      pass
