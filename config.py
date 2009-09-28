@@ -100,6 +100,8 @@ def get_winner(players):
       first = p
     elif second is None or p.score > second.score:
       second = p
+  if first.score - second.score >= 5:
+    return first
   if first.score < 5:
     return None
   if second is None:
