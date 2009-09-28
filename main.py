@@ -99,7 +99,11 @@ def play():
     hazards.draw(game_area)
     screen.blit(game_area, game_area_rect)
     screen.blit(font.render(get_status_string(players), True, config.colors['fg']), status_rect)
-    screen.blit(font.render(config.help_string, True, config.colors['fg']), help_rect)
+    line_num = 0
+    for line in string.split(config.help_string, '\n'):
+      screen.blit(font.render(line, True, config.colors['fg']), \
+        (help_rect.left, help_rect.top + line_num*font.get_linesize(), help_rect.width, help_rect.height))
+      line_num += 1
     pygame.display.flip()
     pygame.time.wait(max(0, config.sleep - (pygame.time.get_ticks() - ticks)))
 
