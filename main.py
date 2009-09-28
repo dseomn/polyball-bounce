@@ -74,7 +74,7 @@ while True:
         keys_down[event.key]()
       except KeyError:
         pass
-      if event.key == pygame.K_p and event.mod & pygame.KMOD_CTRL:
+      if event.key == pygame.K_PAUSE or (event.key == pygame.K_p and event.mod & pygame.KMOD_CTRL):
         paused = not paused
     elif event.type == pygame.KEYUP:
       try:
