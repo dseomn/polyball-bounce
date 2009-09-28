@@ -15,7 +15,7 @@ from hazard import Hazard
 from player import Player
 
 
-def get_score_string(players):
+def get_status_string(players):
   return string.join([str.format('{0.name: >8}: {0.score: <4}', i) for i in players], '  ')
 
 
@@ -48,7 +48,7 @@ for i in collideables:
   i.balls = balls
 
 
-# set up score reporting and border(s)
+# set up status reporting and border(s)
 borders = [
   pygame.Rect(0, 0, config.size[0]+2*config.border_size, config.border_size), # top
   pygame.Rect(0, 0, config.border_size, config.size[1]+2*config.border_size), # left
@@ -57,7 +57,7 @@ borders = [
 ]
 game_area_rect = pygame.Rect(config.border_size, config.border_size, config.size[0], config.size[1])
 font = pygame.font.Font(None, config.font_size)
-score_report = pygame.Rect(0, config.size[1]+2*config.border_size+config.margin_size, config.size[0]+config.border_size, config.font_size)
+status_rect = pygame.Rect(0, config.size[1]+2*config.border_size+config.margin_size, config.size[0]+config.border_size, config.font_size)
 
 while True:
   ticks = pygame.time.get_ticks()
@@ -87,6 +87,6 @@ while True:
   paddles.draw(game_area)
   hazards.draw(game_area)
   screen.blit(game_area, game_area_rect)
-  screen.blit(font.render(get_score_string(players), True, config.colors['fg']), score_report)
+  screen.blit(font.render(get_status_string(players), True, config.colors['fg']), status_rect)
   pygame.display.flip()
   pygame.time.wait(max(0, config.sleep - (pygame.time.get_ticks() - ticks)))
