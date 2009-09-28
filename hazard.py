@@ -3,7 +3,8 @@ import pygame
 import config, util
 
 class Hazard(pygame.sprite.Sprite):
-  ALL = TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, OTHER = range(5)
+  TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, OTHER = range(5)
+  ALL = TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
   
   def __init__(self, type=OTHER, rect=None, image=None, update=None):
     pygame.sprite.Sprite.__init__(self)
