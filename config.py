@@ -9,7 +9,7 @@ pixel_margin = 1.5
 size = (400, 400)
 font_size = 16
 border_size = 2
-margin_size = 2
+margin_size = 4
 
 speed = 3
 
@@ -95,6 +95,7 @@ score_zone = {
 }
 
 help_string = 'Ctrl-N: new game   Ctrl-P: pause'
+help_width = 150
 
 # return the winner of the game, or None if there is no winner
 def get_winner(players):

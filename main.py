@@ -6,20 +6,15 @@ pygame.init()
 
 pygame.display.set_caption(config.name)
 pygame.display.set_icon(pygame.image.load(os.path.join('data', 'icon.png')))
-screen = pygame.display.set_mode((config.size[0]+2*config.border_size, config.size[1]+2*config.border_size+2*config.font_size+2*config.margin_size))
-game_area = pygame.Surface(config.size)
 
-# set up status reporting and border(s)
-borders = [
-  pygame.Rect(0, config.font_size+config.margin_size, config.size[0]+2*config.border_size, config.border_size), # top
-  pygame.Rect(0, config.font_size+config.margin_size, config.border_size, config.size[1]+2*config.border_size), # left
-  pygame.Rect(config.size[0]+config.border_size, config.font_size+config.margin_size, config.border_size, config.size[1]+2*config.border_size), # right
-  pygame.Rect(0, config.size[1]+config.font_size+config.margin_size+config.border_size, config.size[0]+2*config.border_size, config.border_size), # bottom
-]
-game_area_rect = pygame.Rect(config.border_size, config.font_size+config.margin_size+config.border_size, config.size[0], config.size[1])
+# set up screen and layout
+game_area_rect = pygame.Rect(config.border_size, config.border_size, config.size[0], config.size[1])
+border_rect = game_area_rect.inflate(2*config.border_size, 2*config.border_size)
 font = pygame.font.Font(None, config.font_size)
-status_rect = pygame.Rect(config.border_size, config.margin_size, config.size[0], config.font_size)
-help_rect = pygame.Rect(config.border_size, config.size[1]+config.font_size+2*config.border_size+2*config.margin_size, config.size[0], config.font_size)
+status_rect = pygame.Rect(config.border_size, border_rect.bottom+config.margin_size, config.size[0], config.font_size)
+help_rect = pygame.Rect(border_rect.right+config.margin_size, config.margin_size, config.help_width, status_rect.bottom - 2*config.margin_size)
+screen = pygame.display.set_mode((help_rect.right, status_rect.bottom))
+
 
 from ball import Ball
 from hazard import Hazard
@@ -34,6 +29,7 @@ def play():
     return string.join(parts, '  ')
 
   # set up objects on the game board
+  game_area = pygame.Surface(config.size)
   paused = False
   winner = None
   players = []
@@ -96,9 +92,8 @@ def play():
         balls.add(Ball(collideables, score_zones))
   
     screen.fill(config.colors['bg'])
+    screen.fill(config.colors['border'], border_rect)
     game_area.fill(config.colors['bg'])
-    for i in borders:
-      screen.fill(config.colors['border'], i)
     balls.draw(game_area)
     paddles.draw(game_area)
     hazards.draw(game_area)
