@@ -1,3 +1,5 @@
+import pygame
+
 def init(config):
   square = pygame.Surface((30,30))
   square.fill(config.colors['fg'])
@@ -23,5 +25,5 @@ def init(config):
 
   config.ball['num'] = 2
   config.ball['speed'] = 1.5
-  config.hazard['custom'] = [{'rect': (110, 110, 30, 30), 'image': _hazard_square, 'update': _hazard_update}]
+  config.hazard['custom'] = [{'rect': (110, 110, 30, 30), 'image': square, 'update': update}]
   config.paddle['speed'] = 1.0
