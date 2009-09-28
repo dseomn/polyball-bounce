@@ -8,6 +8,7 @@ pygame.display.set_caption(config.name)
 pygame.display.set_icon(pygame.image.load(os.path.join('data', 'icon.png')))
 screen = pygame.display.set_mode((config.size[0]+2*config.border_size, config.size[1]+2*config.border_size+config.font_size+config.margin_size))
 game_area = pygame.Surface(config.size)
+paused = False
 
 
 from ball import Ball
@@ -16,7 +17,9 @@ from player import Player
 
 
 def get_status_string(players):
-  return string.join([str.format('{0.name: >8}: {0.score: <4}', i) for i in players], '  ')
+  parts = [str.format('{0.name: >8}: {0.score: <4}', i) for i in players]
+  if paused: parts += ['***PAUSED***']
+  return string.join(parts, '  ')
 
 
 # set up objects on the game board
@@ -69,16 +72,20 @@ while True:
         keys_down[event.key]()
       except KeyError:
         pass
+      if event.key == pygame.K_p and event.mod & pygame.KMOD_CTRL:
+        paused = not paused
     elif event.type == pygame.KEYUP:
       try:
         keys_up[event.key]()
       except KeyError:
         pass
 
-  balls.update()
-  paddles.update()
-  while len(balls) < config.num_balls:
-    balls.add(Ball(collideables, score_zones))
+  if not paused:
+    balls.update()
+    paddles.update()
+    while len(balls) < config.num_balls:
+      balls.add(Ball(collideables, score_zones))
+
   screen.fill(config.colors['bg'])
   game_area.fill(config.colors['bg'])
   for i in borders:
