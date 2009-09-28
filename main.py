@@ -86,8 +86,9 @@ def play():
     winner = config.get_winner(players)
   
     if not paused and winner is None:
-      balls.update()
+      hazards.update()
       paddles.update()
+      balls.update()
       while len(balls) < config.num_balls:
         balls.add(Ball(collideables, score_zones))
   
