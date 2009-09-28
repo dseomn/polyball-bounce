@@ -62,8 +62,10 @@ def play():
     i.balls = balls
     
   
+  # run the game
   while True:
     ticks = pygame.time.get_ticks()
+
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         sys.exit()
@@ -91,6 +93,7 @@ def play():
       while len(balls) < config.ball['num']:
         balls.add(Ball(collideables, score_zones))
   
+    # draw everything
     screen.fill(config.colors['bg'])
     screen.fill(config.colors['border'], border_rect)
     game_area.fill(config.colors['bg'])
@@ -105,6 +108,7 @@ def play():
         (help_rect.left, help_rect.top + line_num*font.get_linesize(), help_rect.width, help_rect.height))
       line_num += 1
     pygame.display.flip()
+
     pygame.time.wait(max(0, config.sleep - (pygame.time.get_ticks() - ticks)))
 
 
