@@ -19,7 +19,7 @@ class Hazard(pygame.sprite.Sprite):
     if rect is None:
       self.rect = self.image.get_rect()
     else:
-      self.rect = rect
+      self.rect = pygame.Rect(rect)
 
     if update is not None:
       self._update = update

@@ -52,7 +52,7 @@ hazard = {
 
   # additional hazards
   'custom': [
-    {'rect': pygame.Rect(110, 110, 30, 30), 'image': _hazard_square, 'update': _hazard_update},
+    {'rect': (110, 110, 30, 30), 'image': _hazard_square, 'update': _hazard_update},
   ],
 }
 
