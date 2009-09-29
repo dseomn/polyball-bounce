@@ -35,9 +35,15 @@ class ConfigDialog(object):
     vbox_controls.pack_start(spin)
 
     vbox_labels.pack_start(gtk.Label('Level'))
-    cbox = gtk.combo_box_new_text()
+    liststore = gtk.ListStore(str)
+    cbox = gtk.ComboBox(liststore)
+    cell = gtk.CellRendererText()
+    cbox.pack_start(cell)
+    cbox.add_attribute(cell, 'text', 0)
     for level_name in self.levels.iterkeys():
-      cbox.append_text(level_name)
+      treeiter = liststore.append([level_name])
+      if level_name == self.config.level_name:
+        cbox.set_active_iter(treeiter)
     cbox.connect('changed', self.cb_level)
     vbox_controls.pack_start(cbox)
 
