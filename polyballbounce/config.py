@@ -18,7 +18,8 @@ speed = 3
 
 sleep = 25 # in milliseconds
 
-icon = pygame.image.load(os.path.join(datadir, 'icon.png'))
+icon_file = os.path.join(datadir, 'icon.png')
+icon = pygame.image.load(icon_file)
 
 colors = {
   'bg':     (255, 255, 255),
@@ -29,6 +30,7 @@ colors = {
 ball = {
   'start': (200, 200),
   'image': pygame.image.load(os.path.join(datadir, 'ball.png')),
+  'num_max': 999,
 }
 
 hazard = {
