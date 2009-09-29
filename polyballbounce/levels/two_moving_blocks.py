@@ -3,6 +3,7 @@ import pygame
 name = 'Two Moving Blocks'
 
 def init(config):
+  config.level_name = name
   square = pygame.Surface((30,30))
   square.fill(config.colors['fg'])
   square.set_colorkey(config.colors['bg'])
