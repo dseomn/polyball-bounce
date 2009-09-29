@@ -14,8 +14,11 @@ def bounce_angle(self, other):
         o.mask = pygame.mask.from_surface(o.image)
     x = other.rect.left - self.rect.left
     y = other.rect.top - self.rect.top
-    dx = self.mask.overlap_area(other.mask,(x-1,y)) - self.mask.overlap_area(other.mask,(x+1,y))
-    dy = self.mask.overlap_area(other.mask,(x,y+1)) - self.mask.overlap_area(other.mask,(x,y-1))
+    dx = 0
+    dy = 0
+    for i in xrange(1,4):
+      dx = float(self.mask.overlap_area(other.mask,(x-i,y)) - self.mask.overlap_area(other.mask,(x+i,y))) / i
+      dy = float(self.mask.overlap_area(other.mask,(x,y+i)) - self.mask.overlap_area(other.mask,(x,y-i))) / i
     if dx == 0:
       if dy > 0:
         normal = math.pi/2
