@@ -21,9 +21,7 @@ help_rect = pygame.Rect(border_rect.right+config.margin_size, config.margin_size
 screen = pygame.display.set_mode((help_rect.right, status_rect.bottom))
 
 
-from ball import Ball
-from hazard import Hazard
-from player import Player
+import ball, hazard, player
 
 
 def play():
@@ -45,12 +43,12 @@ def play():
   collideables = pygame.sprite.Group()
   score_zones = pygame.sprite.Group()
   balls = pygame.sprite.Group()
-  for i in Hazard.ALL:
-    hazards.add(Hazard(i))
+  for i in hazard.Hazard.ALL:
+    hazards.add(hazard.Hazard(i))
   for i in config.hazard['custom']:
-    hazards.add(Hazard(**i))
+    hazards.add(hazard.Hazard(**i))
   for i in config.PLAYER_ALL:
-    players.append(Player(i, paddles, score_zones, hazards, balls, paddle_type=config.paddle['paddle_type'][i]))
+    players.append(player.Player(i, paddles, score_zones, hazards, balls, paddle_type=config.paddle['paddle_type'][i]))
   for i in players:
     try:
       keys_down[i.paddle.key_pos] = i.paddle.move_pos
@@ -62,7 +60,7 @@ def play():
   collideables.add(hazards)
   collideables.add(paddles)
   for i in xrange(config.ball['num']):
-    balls.add(Ball(collideables, score_zones))
+    balls.add(ball.Ball(collideables, score_zones))
   for i in collideables:
     i.balls = balls
     
@@ -98,7 +96,7 @@ def play():
       paddles.update()
       balls.update()
       while len(balls) < config.ball['num']:
-        balls.add(Ball(collideables, score_zones))
+        balls.add(ball.Ball(collideables, score_zones))
   
     # draw everything
     screen.fill(config.colors['bg'])
