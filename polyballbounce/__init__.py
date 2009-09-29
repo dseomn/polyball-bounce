@@ -43,11 +43,11 @@ def run_game():
     score_zones = pygame.sprite.Group()
     balls = pygame.sprite.Group()
     for i in hazard.Hazard.ALL:
-      hazards.add(hazard.Hazard(i))
+      hazards.add(hazard.Hazard(config, i))
     for i in config.hazard['custom']:
-      hazards.add(hazard.Hazard(**i))
+      hazards.add(hazard.Hazard(config, **i))
     for i in config.PLAYER_ALL:
-      players.append(player.Player(i, paddles, score_zones, hazards, balls, paddle_type=config.paddle['paddle_type'][i]))
+      players.append(player.Player(config, i, paddles, score_zones, hazards, balls, paddle_type=config.paddle['paddle_type'][i]))
     for i in players:
       try:
         keys_down[i.paddle.key_pos] = i.paddle.move_pos
@@ -59,7 +59,7 @@ def run_game():
     collideables.add(hazards)
     collideables.add(paddles)
     for i in xrange(config.ball['num']):
-      balls.add(ball.Ball(collideables, score_zones))
+      balls.add(ball.Ball(config, collideables, score_zones))
     for i in collideables:
       i.balls = balls
       
@@ -95,7 +95,7 @@ def run_game():
         paddles.update()
         balls.update()
         while len(balls) < config.ball['num']:
-          balls.add(ball.Ball(collideables, score_zones))
+          balls.add(ball.Ball(config, collideables, score_zones))
     
       # draw everything
       screen.fill(config.colors['bg'])
