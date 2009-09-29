@@ -2,7 +2,7 @@ import sys, time, random, string, os
 import pygame
 import config, levels
 
-levels.ALL[0].init(config)
+levels.ALL['Simple'].init(config)
 
 def run_game():
   pygame.init()

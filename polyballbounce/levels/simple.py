@@ -1,3 +1,5 @@
+name = 'Simple'
+
 def init(config):
   config.ball['num'] = 1
   config.ball['speed'] = 1.5
