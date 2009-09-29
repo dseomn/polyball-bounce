@@ -10,7 +10,7 @@ def run_game():
   pygame.init()
   
   pygame.display.set_caption(config.name)
-  pygame.display.set_icon(pygame.image.load(os.path.join('data', 'icon.png')))
+  pygame.display.set_icon(config.icon)
   
   # set up screen and layout
   game_area_rect = pygame.Rect(config.border_size, config.border_size, config.size[0], config.size[1])

@@ -1,6 +1,9 @@
+import os
 import pygame
 
 name = 'Polyball Bounce'
+
+datadir = 'data'
 
 # margin of error for various floating point comparisons
 margin = 0.01
@@ -15,6 +18,8 @@ speed = 3
 
 sleep = 25 # in milliseconds
 
+icon = pygame.image.load(os.path.join(datadir, 'icon.png'))
+
 colors = {
   'bg':     (255, 255, 255),
   'fg':     (  0,   0,   0),
@@ -23,6 +28,7 @@ colors = {
 
 ball = {
   'start': (200, 200),
+  'image': pygame.image.load(os.path.join(datadir, 'ball.png')),
 }
 
 hazard = {

@@ -75,7 +75,7 @@ class Ball(pygame.sprite.DirtySprite):
     if angle is None:
       angle = random.uniform(0, 2*math.pi)
     self.vel = velocity.Velocity(speed, angle)
-    self.image = pygame.image.load(os.path.join('data', 'ball.png')).convert_alpha()
+    self.image = config.ball['image'].convert_alpha()
     self.rect = self.image.get_rect()
     self.rect.center = start
     self.x = self.rect.centerx
