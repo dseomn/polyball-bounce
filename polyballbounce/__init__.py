@@ -1,8 +1,10 @@
 import sys, time, random, string, os
 import pygame
-import config, levels
+import config, levels, dialog
 
 levels.ALL['Simple'].init(config)
+
+config_dialog = dialog.ConfigDialog(config, levels.ALL)
 
 def run_game():
   pygame.init()
@@ -82,6 +84,9 @@ def run_game():
             return False
           elif event.key == pygame.K_q and event.mod & pygame.KMOD_CTRL:
             return True
+          elif event.key == pygame.K_o and event.mod & pygame.KMOD_CTRL:
+            config_dialog.show()
+            return False
         elif event.type == pygame.KEYUP:
           try:
             keys_up[event.key]()

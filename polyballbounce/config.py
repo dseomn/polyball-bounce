@@ -89,6 +89,8 @@ Ctrl-N: New game
 Ctrl-P: Pause
 Ctrl-Q: Quit
 
+Ctrl-O: Options
+
 Controls
   Top: 5 6
   Left: A Z
