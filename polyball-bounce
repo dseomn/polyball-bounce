@@ -1,0 +1,5 @@
+#!/usr/bin/python
+
+import polyballbounce
+
+polyballbounce.run_game()
