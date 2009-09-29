@@ -1,10 +1,8 @@
 import sys, time, random, string, os
 import pygame
-import config
+import config, levels
 
-import levels.simple as level
-level.init(config)
-
+levels.ALL[0].init(config)
 
 def run_game():
   pygame.init()
