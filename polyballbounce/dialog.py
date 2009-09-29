@@ -1,14 +1,16 @@
 import pygtk
-pygtk.require('2.0')
+pygtk.require('2.4')
 import gtk
 
 class ConfigDialog(object):
-  def __init__(self, config):
+  def __init__(self, config, levels):
     self.config = config
+    self.levels = levels
 
   def cb_ball_num(self, widget):
     self.config.ball['num'] = widget.get_value_as_int()
-    print self.config.ball['num']
+  def db_level(self, widget):
+    self.levels[widget.get_model()[widget.get_active()][0]].init(self.config)
 
   def show(self):
     window = gtk.Window()
@@ -31,6 +33,13 @@ class ConfigDialog(object):
     spin.set_wrap(False)
     spin.connect('value-changed', self.cb_ball_num)
     vbox_controls.pack_start(spin)
+
+    vbox_labels.pack_start(gtk.Label('Level'))
+    cbox = gtk.combo_box_new_text()
+    for level_name in self.levels.iterkeys():
+      cbox.append_text(level_name)
+    cbox.connect('changed', self.cb_level)
+    vbox_controls.pack_start(cbox)
 
     window.show_all()
     gtk.main()
