@@ -1,5 +1,5 @@
 import pygtk
-pygtk.require('2.4')
+pygtk.require('2.0')
 import gtk
 
 class ConfigDialog(object):
@@ -9,7 +9,7 @@ class ConfigDialog(object):
 
   def cb_ball_num(self, widget):
     self.config.ball['num'] = widget.get_value_as_int()
-  def db_level(self, widget):
+  def cb_level(self, widget):
     self.levels[widget.get_model()[widget.get_active()][0]].init(self.config)
 
   def show(self):
