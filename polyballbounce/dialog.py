@@ -17,6 +17,11 @@ class ConfigDialog(object):
       self.config.hazard['size'] = (widget.get_value(), self.config.hazard['size'][1])
     elif index == 1:
       self.config.hazard['size'] = (self.config.hazard['size'][0], widget.get_value())
+  def cb_player(self, widget, player):
+    for k, v in self.config.player['type_name'].iteritems():
+      if v == widget.get_model()[widget.get_active()][0]:
+        self.config.paddle['paddle_type'][player] = k
+        return
 
   def show(self):
     window = gtk.Window()
@@ -74,6 +79,20 @@ class ConfigDialog(object):
     scale = gtk.HScale(adj)
     scale.connect('value-changed', self.cb_hazard_size, 1)
     vbox_controls.pack_start(scale)
+
+    for player in self.config.PLAYER_ALL:
+      vbox_labels.pack_start(gtk.Label(self.config.player['name'][player]))
+      liststore = gtk.ListStore(str)
+      cbox = gtk.ComboBox(liststore)
+      cell = gtk.CellRendererText()
+      cbox.pack_start(cell)
+      cbox.add_attribute(cell, 'text', 0)
+      for p_type in self.config.PLAYER_TYPES_ALL:
+        treeiter = liststore.append([self.config.player['type_name'][p_type]])
+        if p_type == self.config.paddle['paddle_type'][player]:
+          cbox.set_active_iter(treeiter)
+      cbox.connect('changed', self.cb_player, player)
+      vbox_controls.pack_start(cbox)
 
     but = gtk.Button(stock=gtk.STOCK_OK)
     but.connect_object('clicked', gtk.Widget.destroy, window)

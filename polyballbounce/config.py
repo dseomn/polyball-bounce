@@ -38,7 +38,7 @@ hazard = {
 }
 
 PLAYER_ALL = PLAYER_TOP, PLAYER_LEFT, PLAYER_RIGHT, PLAYER_BOTTOM = range(4)
-PLAYER_COMPUTER, PLAYER_HUMAN = range(2)
+PLAYER_TYPES_ALL = PLAYER_COMPUTER, PLAYER_HUMAN = range(2)
 player = {
   'name': {
     PLAYER_TOP: 'Top',
@@ -46,6 +46,10 @@ player = {
     PLAYER_RIGHT: 'Right',
     PLAYER_BOTTOM: 'Bottom',
   },
+  'type_name': {
+    PLAYER_COMPUTER: 'Computer',
+    PLAYER_HUMAN: 'Human',
+  }
 }
 paddle = {
   'size_horizontal': (60, 4),
