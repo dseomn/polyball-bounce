@@ -1,3 +1,4 @@
+import math
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -11,6 +12,11 @@ class ConfigDialog(object):
     self.config.ball['num'] = widget.get_value_as_int()
   def cb_level(self, widget):
     self.levels[widget.get_model()[widget.get_active()][0]].init(self.config)
+  def cb_hazard_size(self, widget, index):
+    if index == 0:
+      self.config.hazard['size'] = (widget.get_value(), self.config.hazard['size'][1])
+    elif index == 1:
+      self.config.hazard['size'] = (self.config.hazard['size'][0], widget.get_value())
 
   def show(self):
     window = gtk.Window()
@@ -56,6 +62,18 @@ class ConfigDialog(object):
         cbox.set_active_iter(treeiter)
     cbox.connect('changed', self.cb_level)
     vbox_controls.pack_start(cbox)
+
+    vbox_labels.pack_start(gtk.Label('Corner width'))
+    adj = gtk.Adjustment(self.config.hazard['size'][0], 0, math.floor((self.config.size[0] - self.config.paddle['size_horizontal'][0] - 2*self.config.pixel_margin)/2), 1)
+    scale = gtk.HScale(adj)
+    scale.connect('value-changed', self.cb_hazard_size, 0)
+    vbox_controls.pack_start(scale)
+
+    vbox_labels.pack_start(gtk.Label('Corner height'))
+    adj = gtk.Adjustment(self.config.hazard['size'][1], 0, math.floor((self.config.size[1] - self.config.paddle['size_vertical'][1] - 2*self.config.pixel_margin)/2), 1)
+    scale = gtk.HScale(adj)
+    scale.connect('value-changed', self.cb_hazard_size, 1)
+    vbox_controls.pack_start(scale)
 
     but = gtk.Button(stock=gtk.STOCK_OK)
     but.connect_object('clicked', gtk.Widget.destroy, window)
