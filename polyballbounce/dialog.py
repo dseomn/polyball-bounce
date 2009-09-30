@@ -19,14 +19,24 @@ class ConfigDialog(object):
     window.connect('delete_event', lambda widget, data=None: False)
     window.connect('destroy', lambda widget, data=None: gtk.main_quit())
 
+    # set up boxes
+    vbox_outer = gtk.VBox(False, 10)
+    vbox_outer.set_border_width(10)
+    window.add(vbox_outer)
+
     hbox = gtk.HBox(False, 10)
-    hbox.set_border_width(10)
-    window.add(hbox)
+    vbox_outer.pack_start(hbox)
+
+    hbox_bottom = gtk.HBox(False, 10)
+    vbox_outer.pack_start(hbox_bottom)
+
     vbox_labels = gtk.VBox(True, 10)
-    vbox_controls = gtk.VBox(True, 10)
     hbox.pack_start(vbox_labels)
+
+    vbox_controls = gtk.VBox(True, 10)
     hbox.pack_start(vbox_controls)
 
+    # set up widgets in boxes
     vbox_labels.pack_start(gtk.Label('Balls'))
     adj = gtk.Adjustment(self.config.ball['num'], 1, self.config.ball['num_max'], 1)
     spin = gtk.SpinButton(adj)
@@ -46,6 +56,10 @@ class ConfigDialog(object):
         cbox.set_active_iter(treeiter)
     cbox.connect('changed', self.cb_level)
     vbox_controls.pack_start(cbox)
+
+    but = gtk.Button(stock=gtk.STOCK_OK)
+    but.connect_object('clicked', gtk.Widget.destroy, window)
+    hbox_bottom.pack_end(but, expand=False)
 
     window.show_all()
     gtk.main()
