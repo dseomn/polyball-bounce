@@ -52,8 +52,8 @@ player = {
   }
 }
 paddle = {
-  'size_horizontal': (60, 4),
-  'size_vertical': (4, 60),
+  'size_horizontal': (60, 6),
+  'size_vertical': (6, 60),
   'center': {
     PLAYER_TOP: (200, 6),
     PLAYER_LEFT: (6, 200),

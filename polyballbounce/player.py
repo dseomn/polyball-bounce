@@ -17,23 +17,18 @@ class Paddle(pygame.sprite.DirtySprite):
     if self.owner.type in (self.config.PLAYER_TOP, self.config.PLAYER_BOTTOM):
       self.pos_angle = 0
       self.image = pygame.Surface(self.config.paddle['size_horizontal'])
+      self.image.fill(self.config.colors['bg'])
+      pygame.draw.ellipse(self.image, self.config.colors['fg'], (0, -self.config.paddle['size_horizontal'][1], self.config.paddle['size_horizontal'][0], 2*self.config.paddle['size_horizontal'][1]))
     elif self.owner.type in (self.config.PLAYER_LEFT, self.config.PLAYER_RIGHT):
       self.pos_angle = 3*math.pi/2
       self.image = pygame.Surface(self.config.paddle['size_vertical'])
-
-    if self.owner.type == self.config.PLAYER_TOP:
-      self.normal = 3*math.pi/2
-    elif self.owner.type == self.config.PLAYER_LEFT:
-      self.normal = 0
-    elif self.owner.type == self.config.PLAYER_RIGHT:
-      self.normal = math.pi
-    elif self.owner.type == self.config.PLAYER_BOTTOM:
-      self.normal = math.pi/2
+      self.image.fill(self.config.colors['bg'])
+      pygame.draw.ellipse(self.image, self.config.colors['fg'], (-self.config.paddle['size_vertical'][0], 0, 2*self.config.paddle['size_vertical'][0], self.config.paddle['size_vertical'][1]))
+    self.image = pygame.transform.flip(self.image, self.owner.type == self.config.PLAYER_RIGHT, self.owner.type == self.config.PLAYER_BOTTOM)
+    self.image.set_colorkey(self.config.colors['bg'])
 
     self.vel = velocity.Velocity(0, 0)
     self.speed = speed
-    self.image.fill(self.config.colors['fg'])
-    self.image.set_colorkey(self.config.colors['bg'])
     self.rect = self.image.get_rect()
     self.rect.center = self.config.paddle['center'][owner.type]
     self.x = self.rect.centerx
