@@ -18,12 +18,12 @@ class Paddle(pygame.sprite.DirtySprite):
       self.pos_angle = 0
       self.image = pygame.Surface(self.config.paddle['size_horizontal'])
       self.image.fill(self.config.colors['bg'])
-      pygame.draw.ellipse(self.image, self.config.colors['fg'], (0, -self.config.paddle['size_horizontal'][1], self.config.paddle['size_horizontal'][0], 2*self.config.paddle['size_horizontal'][1]))
+      pygame.draw.circle(self.image, self.config.colors['fg'], (self.config.paddle['size_horizontal'][0]/2, self.config.paddle['size_horizontal'][1] - self.config.paddle['radius']), self.config.paddle['radius'])
     elif self.owner.type in (self.config.PLAYER_LEFT, self.config.PLAYER_RIGHT):
       self.pos_angle = 3*math.pi/2
       self.image = pygame.Surface(self.config.paddle['size_vertical'])
       self.image.fill(self.config.colors['bg'])
-      pygame.draw.ellipse(self.image, self.config.colors['fg'], (-self.config.paddle['size_vertical'][0], 0, 2*self.config.paddle['size_vertical'][0], self.config.paddle['size_vertical'][1]))
+      pygame.draw.circle(self.image, self.config.colors['fg'], (self.config.paddle['size_vertical'][0] - self.config.paddle['radius'], self.config.paddle['size_vertical'][1]/2), self.config.paddle['radius'])
     self.image = pygame.transform.flip(self.image, self.owner.type == self.config.PLAYER_RIGHT, self.owner.type == self.config.PLAYER_BOTTOM)
     self.image.set_colorkey(self.config.colors['bg'])
 

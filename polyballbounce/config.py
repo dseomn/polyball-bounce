@@ -54,6 +54,7 @@ player = {
 paddle = {
   'size_horizontal': (60, 6),
   'size_vertical': (6, 60),
+  'radius': 160,
   'center': {
     PLAYER_TOP: (200, 6),
     PLAYER_LEFT: (6, 200),
