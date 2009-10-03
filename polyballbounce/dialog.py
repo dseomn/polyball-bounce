@@ -99,8 +99,7 @@ class ConfigDialog(object):
     vbox_labels.pack_start(gtk.Label('Paddle curvature'))
     range = float(self.config.paddle['curvature_range'][1]-self.config.paddle['curvature_range'][0])
     num_steps = 1000
-    num_pages = 100
-    adj = gtk.Adjustment(self.config.paddle['curvature'], self.config.paddle['curvature_range'][0], self.config.paddle['curvature_range'][1], range/num_steps, range/num_pages)
+    adj = gtk.Adjustment(self.config.paddle['curvature'], self.config.paddle['curvature_range'][0], self.config.paddle['curvature_range'][1], range/num_steps)
     scale = gtk.HScale(adj)
     scale.set_digits(int(max(0,-math.log(range/num_steps, 10))))
     scale.connect('value-changed', self.cb_paddle_curvature)
