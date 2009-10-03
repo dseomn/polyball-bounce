@@ -24,6 +24,8 @@ class ConfigDialog(object):
         return
   def cb_paddle_curvature(self, widget):
     self.config.paddle['curvature'] = widget.get_value()
+  def cb_paddle_curvature_flatten(self, widget):
+    widget.set_value(0)
 
   def show(self):
     window = gtk.Window()
@@ -97,13 +99,18 @@ class ConfigDialog(object):
       vbox_controls.pack_start(cbox)
 
     vbox_labels.pack_start(gtk.Label('Paddle curvature'))
+    curv_hbox = gtk.HBox(False)
     range = float(self.config.paddle['curvature_range'][1]-self.config.paddle['curvature_range'][0])
     num_steps = 1000
     adj = gtk.Adjustment(self.config.paddle['curvature'], self.config.paddle['curvature_range'][0], self.config.paddle['curvature_range'][1], range/num_steps)
     scale = gtk.HScale(adj)
     scale.set_digits(int(max(0,-math.log(range/num_steps, 10))))
     scale.connect('value-changed', self.cb_paddle_curvature)
-    vbox_controls.pack_start(scale)
+    curv_hbox.pack_start(scale)
+    but = gtk.Button('Flat')
+    but.connect_object('clicked', self.cb_paddle_curvature_flatten, scale)
+    curv_hbox.pack_start(but, expand=False)
+    vbox_controls.pack_start(curv_hbox)
 
     but = gtk.Button(stock=gtk.STOCK_OK)
     but.connect_object('clicked', gtk.Widget.destroy, window)
