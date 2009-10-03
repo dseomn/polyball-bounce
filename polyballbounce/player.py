@@ -14,16 +14,24 @@ class Paddle(pygame.sprite.DirtySprite):
     self.hazards = hazards
     self.balls = balls
 
+    color_in, color_out = self.config.colors['fg'], self.config.colors['bg']
+    if self.config.paddle['radius'] < 0:
+      color_in, color_out = color_out, color_in
     if self.owner.type in (self.config.PLAYER_TOP, self.config.PLAYER_BOTTOM):
       self.pos_angle = 0
       self.image = pygame.Surface(self.config.paddle['size_horizontal'])
-      self.image.fill(self.config.colors['bg'])
-      pygame.draw.circle(self.image, self.config.colors['fg'], (self.config.paddle['size_horizontal'][0]/2, self.config.paddle['size_horizontal'][1] - self.config.paddle['radius']), self.config.paddle['radius'])
+      self.image.fill(color_out)
+      if self.config.paddle['radius'] > 0: circle_y = self.config.paddle['size_horizontal'][1] - self.config.paddle['radius']
+      else: circle_y = -self.config.paddle['radius']
+      pygame.draw.circle(self.image, color_in, (self.config.paddle['size_horizontal'][0]/2, circle_y), abs(self.config.paddle['radius']+self.config.paddle['radius_increment']))
     elif self.owner.type in (self.config.PLAYER_LEFT, self.config.PLAYER_RIGHT):
       self.pos_angle = 3*math.pi/2
       self.image = pygame.Surface(self.config.paddle['size_vertical'])
-      self.image.fill(self.config.colors['bg'])
-      pygame.draw.circle(self.image, self.config.colors['fg'], (self.config.paddle['size_vertical'][0] - self.config.paddle['radius'], self.config.paddle['size_vertical'][1]/2), self.config.paddle['radius'])
+      self.image.fill(color_out)
+      if self.config.paddle['radius'] > 0: circle_x = self.config.paddle['size_vertical'][0] - self.config.paddle['radius']
+      else: circle_x = -self.config.paddle['radius']
+      pygame.draw.circle(self.image, color_in, (circle_x, self.config.paddle['size_vertical'][1]/2), abs(self.config.paddle['radius']+self.config.paddle['radius_increment']))
+      
     self.image = pygame.transform.flip(self.image, self.owner.type == self.config.PLAYER_RIGHT, self.owner.type == self.config.PLAYER_BOTTOM)
     self.image.set_colorkey(self.config.colors['bg'])
 
