@@ -55,6 +55,7 @@ paddle = {
   'size_horizontal': (60, 6),
   'size_vertical': (6, 60),
   'curvature': 1e-2,
+  'curvature_range': (-0.1, 0.1), # min and max values for curvature
   'radius_increment': 2, # when curvature is negative, add a flat part with this depth behind the paddle
   'center': {
     PLAYER_TOP: (200, 6),
