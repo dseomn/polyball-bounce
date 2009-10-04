@@ -52,16 +52,16 @@ player = {
   }
 }
 paddle = {
-  'size_horizontal': (60, 6),
-  'size_vertical': (6, 60),
-  'curvature': 1e-2,
-  'curvature_range': (-0.1, 0.1), # min and max values for curvature
+  'size_horizontal': (60, 10),
+  'size_vertical': (10, 60),
+  'curvature': 2e-2,
+  'curvature_range': (-0.1, 0.2), # min and max values for curvature
   'radius_increment': 2, # when curvature is negative, add a flat part with this depth behind the paddle
   'center': {
-    PLAYER_TOP: (200, 6),
-    PLAYER_LEFT: (6, 200),
-    PLAYER_RIGHT: (394, 200),
-    PLAYER_BOTTOM: (200, 394),
+    PLAYER_TOP: (200, 8),
+    PLAYER_LEFT: (8, 200),
+    PLAYER_RIGHT: (392, 200),
+    PLAYER_BOTTOM: (200, 392),
   },
   'key_pos': {
     PLAYER_TOP: pygame.K_6,
