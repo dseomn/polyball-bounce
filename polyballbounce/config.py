@@ -31,6 +31,8 @@ ball = {
   'start': (200, 200),
   'image': pygame.image.load(os.path.join(datadir, 'ball.png')),
   'num_max': 999,
+  'num': 1,
+  'speed': 1.5
 }
 
 hazard = {
@@ -52,6 +54,7 @@ player = {
   }
 }
 paddle = {
+  'speed': 1.0,
   'size_horizontal': (60, 10),
   'size_vertical': (10, 60),
   'curvature': 2e-2,

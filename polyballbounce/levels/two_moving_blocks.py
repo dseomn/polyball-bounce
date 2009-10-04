@@ -26,10 +26,7 @@ def init(config):
     self.rect.centery += self.dir[1]
   
 
-  config.ball['num'] = 4
-  config.ball['speed'] = 2
   config.hazard['custom'] = [
     {'rect': (110, 110, 30, 30), 'image': square, 'update': update},
     {'rect': (390, 390, 30, 30), 'image': square, 'update': update},
   ]
-  config.paddle['speed'] = 1.25
