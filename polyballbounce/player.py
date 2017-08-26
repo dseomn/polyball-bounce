@@ -130,6 +130,8 @@ class ScoreZone(pygame.sprite.Sprite):
     self.config = config
     self.owner = owner
     self.image = pygame.Surface(self.config.score_zone[self.owner.type]['size'])
+    self.mask = pygame.mask.from_surface(self.image)
+    self.mask.fill()
     self.rect = self.image.get_rect()
     self.rect.center = self.config.score_zone[self.owner.type]['center']
 
